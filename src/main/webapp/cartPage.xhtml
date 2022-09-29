@@ -1,0 +1,91 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:p="http://primefaces.org/ui">
+<h:body>
+
+	<ui:composition template="/WEB-INF/template/layout.xhtml">
+		<ui:define name="css">
+			<link rel="stylesheet" href="css/cartPage.css" />
+		</ui:define>
+		<ui:define name="content">
+
+			<div class="ui-fuild row text-center  my-5">
+				<h1>Votre panier</h1>
+			</div>
+
+			<div class="container my-5 p-5 shadow rounded" id="containerMain">
+				<div class="m-3 text-center">
+					<h:form id="cartList">
+						<p:growl id="cartMessage" showDetail="true" />
+						<p:dataTable var="orderLine" value="#{shopBean.cart}" id="dt-cart"
+							reflow="true" editable="true" editMode="cell"
+							editInitEvent="dblclick" rowKey="#{orderLine.id}"
+							paginator="true" rows="7" paginatorPosition="bottom"
+							widgetVar="dtCart">
+
+							<f:attribute name="orderLineAttr" value="#{orderLine}" />
+							<p:ajax event="cellEdit" listener="#{shopBean.onUserCellEdit}"
+								update="@form:cartMessage" />
+
+							<p:column headerText="Article">
+								<p:outputLabel value="#{orderLine.item.label}" />
+							</p:column>
+							<p:column headerText="Aperçu">
+								<p:graphicImage value="#{orderLine.item.imagePath}" />
+							</p:column>
+							<p:column headerText="Prix unitaire">
+								<h:outputLabel value="#{orderLine.item.price} €" />
+							</p:column>
+							<p:column headerText="Quantité">
+								<p:cellEditor>
+									<f:facet name="output">
+										<h:outputText value="#{orderLine.quantity}" />
+									</f:facet>
+									<f:facet name="input">
+										<p:inputNumber value="#{orderLine.quantity}" />
+									</f:facet>
+								</p:cellEditor>
+							</p:column>
+							<p:column headerText="Prix partiel">
+								<p:outputLabel
+									value="#{orderLine.item.price * orderLine.quantity} €" />
+							</p:column>
+							<p:column>
+								<p:commandButton icon="fa-regular fa-trash-can"
+									styleClass="ui-button-warning" title="Supprimer"
+									process="@this" >
+									<f:setPropertyActionListener value="#{orderLine}"
+										target="#{shopBean.selectedOrderLine}" />
+								</p:commandButton>
+							</p:column>
+
+						</p:dataTable>
+
+					</h:form>
+				</div>
+				<div class="row">
+					<div id="totalPrice" class="col-12 offset-8 col-md-2 my-auto">Montant
+						total : #{shopBean.sumOfMyCart()} €</div>
+					<div class="col-12 col-md-1">
+						<h:form>
+							<p:commandButton icon="fa-solid fa-credit-card" value="Acheter"
+								styleClass="ui-button-secondary" type="button"
+								onclick="PF('paymentPop').show()" />
+						</h:form>
+					</div>
+				</div>
+			</div>
+
+
+
+			<ui:include src="WEB-INF/subpage/cartPage/paymentPopup.xhtml" />
+
+		</ui:define>
+
+	</ui:composition>
+</h:body>
+</html>

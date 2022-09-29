@@ -1,0 +1,62 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.proj/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:p="http://primefaces.org/ui">
+
+
+<h:body>
+
+	<div class="card">
+		<h:form id="projForm" styleClass="shadow">
+
+			<p:growl id="messagesProj" showDetail="true" />
+			<p:dataTable var="proj" value="#{adminDashboardBean.projects}"
+				id="dt-projs" reflow="true" editable="true" editMode="cell"
+				editInitEvent="dblclick" rowKey="#{proj.id}" paginator="true"
+				rows="7" paginatorPosition="bottom" widgetVar="dtProjs">
+
+				<f:attribute name="projAttr" value="#{proj}" />
+				<p:ajax event="cellEdit"
+					listener="#{adminDashboardBean.onProjCellEdit}"
+					update="@form:messagesProj" />
+
+				<p:column headerText="Id">
+					<h:outputText value="#{proj.id}" />
+				</p:column>
+				<p:column headerText="Image">
+					<p:graphicImage value="#{proj.imagePath}" />
+				</p:column>
+
+				<p:column headerText="Nom">
+					<p:link outcome="pageProject?id=#{proj.id}faces-redirect=true">
+						<h:outputText value="#{proj.name}" />
+					</p:link>
+				</p:column>
+
+				<p:column headerText="Montant récolté">
+					<h:outputText value="#{proj.currentAmount} €" />
+				</p:column>
+
+				<p:column headerText="Statut">
+					<p:cellEditor>
+						<f:facet name="output">
+							<h:outputText value="#{proj.projectStatus}" />
+						</f:facet>
+						<f:facet name="input">
+							<h:selectOneMenu value="#{proj.projectStatus}" style="width:100%">
+								<f:selectItems value="#{adminDashboardBean.projectStatus}"
+									var="status" itemLabel="#{status.name()}" itemValue="#{status}" />
+							</h:selectOneMenu>
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+			</p:dataTable>
+
+		</h:form>
+	</div>
+</h:body>
+
+</html>

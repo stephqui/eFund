@@ -1,0 +1,102 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:p="http://primefaces.org/ui">
+
+<f:metadata>
+	<f:viewParam name="searchId" />
+	<f:event listener="#{projectsListBean.onLoad(searchId)}"
+		type="preRenderView"></f:event>
+</f:metadata>
+
+<h:body>
+
+	<ui:composition template="/WEB-INF/template/layout.xhtml">
+		<ui:define name="css">
+			<link rel="stylesheet" href="css/genericTabsCards.css" />
+		</ui:define>
+
+		<ui:define name="content">
+
+			<div class="container text-center mb-5 mt-5">
+				<h1>Projets</h1>
+			</div>
+
+			<div class="container shadow p-5 mb-5">
+				<div class="row text-center">
+					<h:form>
+						<p:linkButton outcome="projectsList.xhtml"
+							icon="fa-solid fa-rotate-left"
+							styleClass="rounded-button ui-button-secondary ui-button-outlined"
+							style="margin-right:20px;">
+						</p:linkButton>
+						<span class="ui-input-icon-left"> <i class="pi pi-search" />
+							<p:inputText id="txt1" value="#{projectsListBean.searchRequest}"
+								required="true" label="Text 1" style="width: 30rem"
+								placeholder="Recherchez un projet">
+								<f:validateLength minimum="2" />
+							</p:inputText>
+						</span>
+						<p:message for="txt1" />
+						<p:commandButton
+							styleClass="ui-button-outlined ui-button-secondary rounded-pill"
+							action="#{projectsListBean.search()}" value="Recherchez" />
+
+					</h:form>
+				</div>
+			</div>
+
+			<div class="container shadow p-5 mb-5">
+
+				<div class="row">
+					<p:repeat var="project" value="#{projectsListBean.projectList}">
+						<div class="col-12 col-md-3 my-3">
+							<h:link
+								outcome="pageProject.xhtml?id=#{project.id}faces-redirect=true">
+								<p:card style="margin-right: 30px; height: 100%"
+									styleClass="shadow">
+									<f:facet name="header">
+										<img src="#{request.contextPath}#{project.imagePath}" class="ratio"
+											style="object-fit: cover; height: 20% !important" />
+									</f:facet>
+									<f:facet name="title">
+											#{project.name}
+										</f:facet>
+									<f:facet name="subtitle">
+											<p>#{project.projectCategory.projectCategoryLabel}</p>
+											<p>#{project.summary}</p>
+										</f:facet>
+									<f:facet name="footer">
+										<div><i class="fa-solid fa-location-dot"></i> #{project.location}</div>
+										<div class="progress">
+											<div
+												class="progress-bar progress-bar-striped progress-bar-animated"
+												style="width:#{projectsListBean.percentage(project.currentAmount, project.targetAmount)}%">
+												#{projectsListBean.percentage(project.currentAmount,
+												project.targetAmount)}%</div>
+										</div>
+										<div
+											class="d-flex justify-content-between align-items-bottom pb-2">
+
+											<p>#{project.currentAmount.intValue()} € sur
+												#{project.targetAmount.intValue()}</p>
+											<p>J -
+												#{projectsListBean.calculRemainingDays(project.endDate)}</p>
+										</div>
+									</f:facet>
+								</p:card>
+							</h:link>
+						</div>
+					</p:repeat>
+				</div>
+
+			</div>
+
+		</ui:define>
+
+	</ui:composition>
+</h:body>
+</html>

@@ -1,0 +1,30 @@
+@media only screen and (min-width: 992px) {
+  .navbar .navbar-nav .nav-item .nav-link {
+    padding: 0 2em;
+  }
+  .navbar .navbar-nav .nav-item:not(:last-child) .nav-link {
+    border-right: 1px solid #426CB4;
+ 
+  }
+}
+
+.navbar{
+	border-bottom: 1px solid #426CB4;
+}
+
+a{
+	text-decoration: none;
+}
+
+.progress{
+	background-color: grey;
+}
+
+.ui-dialog {
+    width: auto !important;
+}
+
+.nav-link{
+	font-weight: bold !important;
+	font-size: 18px;
+}

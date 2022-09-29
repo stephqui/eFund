@@ -1,0 +1,122 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:p="http://primefaces.org/ui">
+
+
+
+
+<h:body>
+	<f:metadata>
+		<f:viewParam name="id" />
+		<f:event listener="#{donationBean.onLoad(id)}" type="preRenderView"></f:event>
+	</f:metadata>
+
+
+
+	<ui:composition template="/WEB-INF/template/layout.xhtml">
+	
+	<ui:define name="css">
+			<link rel="stylesheet" href="css/creation.css" />
+		</ui:define>
+
+		<ui:define name="content">
+			<div class="container shadow p-5 mt-5">
+				<h1>Donations</h1>
+				<h2>au profit de : #{donationBean.project.name}</h2>
+				<hr/>
+
+				<h:form id="createDon">
+					<div class="ui-fluid row">
+						<div class="col-12 col-md-1 mt-3"></div>
+					</div>
+					<br />
+					<div class="ui-fluid row">
+
+						<div class="col-12 col-md-3 mt-3"></div>
+						<div class="col-12 col-md-6 mt-3">
+							<div class="ui-inputgroup ">
+								<div class="ui-inputgroup-addon">
+									<i class="fa-solid fa-euro-sign"></i>
+								</div>
+								<p:inputText placeholder="Montant"
+									value="#{donationBean.donationVM.amount}" id="AmountDonation" />
+							</div>
+						</div>
+					</div>
+
+					<div class="ui-fluid row">
+						<div class="col-12 col-md-3 mt-3"></div>
+						<div class="col-12 col-md-6 mt-3">
+							<div class="ui-inputgroup ">
+								<div class="ui-inputgroup-addon">
+									<i class="fa-solid fa-user"></i>
+								</div>
+								<p:inputText placeholder="Nom du détententeur de la carte"
+									value="#{donationBean.donationVM.fullName}" id="NameInput" />
+
+							</div>
+						</div>
+					</div>
+
+					<div class="ui-fluid row">
+						<div class="col-12 col-md-3 mt-3"></div>
+						<div class="col-12 col-md-6 mt-3">
+							<div class="ui-inputgroup ">
+								<div class="ui-inputgroup-addon">
+									<i class="fa-solid fa-credit-card"></i>
+								</div>
+								<p:inputText placeholder="Numéro de carte"
+									value="#{donationBean.donationVM.creditCardNumber}"
+									id="cardNumber" />
+
+							</div>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col-12 col-md-3 mt-3"></div>
+						<div class="col-12 col-md-3 mt-4 d-grid">
+							<div class="ui-inputgroup ">
+								<div class="ui-inputgroup-addon">
+									<i class="pi pi-calendar"></i>
+								</div>
+								<p:inputText placeholder="Date expiration"
+									value="#{donationBean.donationVM.expirationDate}" id="expDate" />
+
+							</div>
+						</div>
+						<div class="col-12 col-md-3 mt-4 d-grid">
+							<div class="ui-inputgroup ">
+								<div class="ui-inputgroup-addon">
+									<i class="fa-solid fa-vr-cardboard"></i>
+								</div>
+								<p:inputText placeholder="Cryptogramme"
+									value="#{donationBean.donationVM.cryptogram}" id="crypto" />
+							</div>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col-12 col-md-3 mt-3"></div>
+						<div class="col-12 col-md-3 mt-4 d-grid">
+							<p:commandButton
+								styleClass="ui-button-outlined rounded-pill"
+								action="#" value="Annuler" />
+						</div>
+						<div class="col-12 col-md-3 mt-4 d-grid">
+							<p:commandButton
+								styleClass="ui-button-outlined rounded-pill"
+								action="#{donationBean.createDonation(id)}" value="Valider" />
+						</div>
+					</div>
+				</h:form>
+
+			</div>
+		</ui:define>
+	</ui:composition>
+</h:body>
+</html>

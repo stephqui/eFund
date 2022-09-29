@@ -1,0 +1,101 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:body>
+	<h:form id="donationForm">
+		<p:dialog widgetVar="donationPop" modal="true">
+			<f:facet name="header">
+				<h1>Donations</h1>
+				<h2>au profit de : #{projectPageBean.project.name}</h2>
+			</f:facet>
+
+			<div class="container-fluid shadow p-5"
+				style="width: 40vw; height: 50vh">
+
+				<div class="ui-fluid row">
+
+					<div class="col-12 col-md-1 mt-3"></div>
+					<div class="col-12 col-md-10 mt-3">
+						<div class="ui-inputgroup ">
+							<div class="ui-inputgroup-addon">
+								<i class="fa-solid fa-euro-sign"></i>
+							</div>
+							<p:inputText placeholder="Montant"
+								value="#{projectPageBean.donationVM.amount}" id="AmountDonation" />
+						</div>
+					</div>
+				</div>
+
+				<div class="ui-fluid row">
+					<div class="col-12 col-md-1 mt-3"></div>
+					<div class="col-12 col-md-10 mt-3">
+						<div class="ui-inputgroup ">
+							<div class="ui-inputgroup-addon">
+								<i class="fa-solid fa-user"></i>
+							</div>
+							<p:inputText placeholder="Nom du détententeur de la carte"
+								value="#{projectPageBean.donationVM.fullName}" id="NameInput" />
+
+						</div>
+					</div>
+				</div>
+
+				<div class="ui-fluid row">
+					<div class="col-12 col-md-1 mt-3"></div>
+					<div class="col-12 col-md-10 mt-3">
+						<div class="ui-inputgroup ">
+							<div class="ui-inputgroup-addon">
+								<i class="fa-solid fa-credit-card"></i>
+							</div>
+							<p:inputText placeholder="Numéro de carte"
+								value="#{projectPageBean.donationVM.creditCardNumber}"
+								id="cardNumber" />
+
+						</div>
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="col-12 col-md-1 mt-3"></div>
+					<div class="col-12 col-md-5 mt-4">
+						<div class="ui-inputgroup ">
+							<div class="ui-inputgroup-addon">
+								<i class="pi pi-calendar"></i>
+							</div>
+							<p:datePicker id="month" view="month"
+								value="#{projectPageBean.donationVM.expirationDate}"
+								pattern="MM/yyyy" yearNavigator="true" yearRange="2000:2030" />
+
+						</div>
+					</div>
+					<div class="col-12 col-md-5 mt-4">
+						<div class="ui-inputgroup ">
+							<div class="ui-inputgroup-addon">
+								<i class="fa-solid fa-vr-cardboard"></i>
+							</div>
+							<p:inputText placeholder="Cryptogramme"
+								value="#{projectPageBean.donationVM.cryptogram}" id="crypto" />
+						</div>
+					</div>
+				</div>
+
+			</div>
+			
+			<f:facet name="footer">
+				<div class="col-12 d-grid">
+					<h:commandButton
+						styleClass="ui-button-outlined ui-button-secondary rounded-pill"
+						action="#{projectPageBean.createDonation()}"
+						oncomplete="PF('donationPop').hide()" value="Valider" />
+				</div>
+			</f:facet>
+
+		</p:dialog>
+	</h:form>
+</h:body>
+</html>

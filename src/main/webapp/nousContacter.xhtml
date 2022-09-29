@@ -1,0 +1,99 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/WEB-INF/template/layout.xhtml">
+	<ui:define name="content">
+		<br />
+		<div class="ui-fuild row">
+			<h1 class="text-center">Nous Contacter</h1>
+		</div>
+		<br />
+		<div class="container shadow p-5 mt-5">
+			<h1>Nous Contacter</h1>
+
+			<hr class="bg-primary" />
+			<h:form id="mailForm">
+				
+
+				<div class="ui-fluid row">
+
+
+					<div class="col-12"></div>
+					<div class="col-12 col-md-6 mt-6">
+						<div class="ui-inputgroup">
+							<div class="ui-inputgroup-addon">
+								<i class="fa-solid fa-align-justify"></i>
+							</div>
+							<p:inputText placeholder="Prénom"
+								value="#{userMessageBean.userMessage.firstName}"
+								id="FistNameInput" />
+						</div>
+					</div>
+					<div class="col-12 col-md-6 mt-6">
+						<div class="ui-inputgroup">
+							<div class="ui-inputgroup-addon">
+								<i class="fa-solid fa-align-justify"></i>
+							</div>
+							<p:inputText placeholder="Nom"
+								value="#{userMessageBean.userMessage.lastName}" id="LastNameInput" />
+						</div>
+					</div>
+				</div>
+
+
+				<div class="ui-fluid row">
+
+					<div class="ui-fluid row mt-3 d-grid"></div>
+					<div class="col-12">
+						<div class="ui-inputgroup ">
+							<div class="ui-inputgroup-addon">
+								<i class="fa-solid fa-at"></i>
+							</div>
+							<p:inputText placeholder="Email"
+								value="#{userMessageBean.userMessage.email}" id="emailInput" />
+						</div>
+					</div>
+
+				</div>
+
+				<br />
+
+				<div class="ui-fluid row d-grid">
+
+					<div class="ui-inputgroup ">
+						<div class="ui-inputgroup-addon">
+							<i class="fa-solid fa-heading"></i>
+						</div>
+						<p:inputText placeholder="Sujet"
+							value="#{userMessageBean.userMessage.sujet}"
+							id="SujetInput" />
+					</div>
+
+				</div>
+
+				<div class="ui-fluid row mt-3 d-grid">
+					<div class="col-12">
+						<p:outputLabel for="message" value="Message : " />
+						<p:inputTextarea placeholder="Ecrivez votre message..."
+							value="#{userMessageBean.userMessage.message}" id="message" />
+					</div>
+				</div>
+				<div class="mt-3 d-grid">
+					<p:commandButton
+						styleClass="ui-button-outlined ui-button-secondary rounded-pill"
+						action="#{userMessageBean.createMessage()}" value="Envoyer" />
+				</div>
+			</h:form>
+
+		</div>
+
+		<br />
+
+
+	</ui:define>
+</ui:composition>
+</html>

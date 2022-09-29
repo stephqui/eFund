@@ -1,0 +1,173 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:body>
+	<h:form id="eventCreationForm">
+		<p:dialog widgetVar="eventCreationPop" modal="true">
+			<f:facet name="header">
+				<h1>Nouvel évènement</h1>
+			</f:facet>
+
+			<div class="container-fluid shadow p-5"
+				style="width: 60vw; height: 60vh">
+
+				<div class="ui-fluid row">
+					<div class="col-12 col-md-1 mt-3"></div>
+					<div class="col-12 col-md-5 mt-3">
+						<div class="ui-inputgroup ">
+							<div class="ui-inputgroup-addon">
+								<i class="fa-solid fa-align-justify"></i>
+							</div>
+							<p:inputText placeholder="Nom"
+								value="#{eventCreationBean.eventCreationFormVM.name}"
+								id="NameInput" required="true" />
+						</div>
+					</div>
+
+				</div>
+
+				<div class="ui-fluid row">
+					<div class="col-12 col-md-1 mt-3"></div>
+					<div class="col-12 col-md-5 mt-3">
+						<div class="ui-inputgroup">
+							<div class="ui-inputgroup-addon">
+								<i class="pi pi-map"></i>
+							</div>
+							<p:inputText placeholder="Localisation"
+								value="#{eventCreationBean.eventCreationFormVM.location}"
+								id="LocalisationInput" required="true" />
+						</div>
+					</div>
+					<div class="col-12 col-md-5 mt-3">
+						<div class="ui-inputgroup">
+							<div class="ui-inputgroup-addon">
+								<i class="pi pi-calendar"></i>
+							</div>
+							<p:datePicker
+								placeholder="Date de fin d'inscription à l'évènement"
+								value="#{eventCreationBean.eventCreationFormVM.endDate}"
+								required="true" />
+						</div>
+					</div>
+				</div>
+
+				<div class="ui-fluid row">
+					<div class="col-12 col-md-1 mt-3"></div>
+					<div class="col-12 col-md-5 mt-3">
+
+						<div class="ui-inputgroup">
+							<div class="ui-inputgroup-addon">
+								<i class="pi pi-calendar"></i>
+							</div>
+							<p:datePicker placeholder="Date de début de l'évènement"
+								value="#{eventCreationBean.eventCreationFormVM.eventStartDate}"
+								required="true" />
+						</div>
+
+
+					</div>
+
+					<div class="col-12 col-md-5 mt-3">
+						<div class="ui-inputgroup">
+							<div class="ui-inputgroup-addon">
+								<i class="fa-solid fa-clock"></i>
+							</div>
+							<p:spinner placeholder="Durée de l'évènement (en jours)" min="1"
+								upButtonStyleClass="ui-button-secondary"
+								downButtonStyleClass="ui-button-secondary"
+								value="#{eventCreationBean.eventCreationFormVM.duration}"
+								id="DurationInput" required="true" />
+						</div>
+					</div>
+				</div>
+
+				<div class="ui-fluid row">
+					<div class="col-12 col-md-1 mt-3"></div>
+					<div class="col-12 col-md-5 mt-3">
+						<div class="row">
+							<div class="col-12 col-md-6">
+								<p:selectOneMenu
+									value="#{eventCreationBean.eventCreationFormVM.projectCategory}"
+									required="true">
+									<f:selectItem itemLabel="Catégorie" itemValue="" />
+									<f:selectItems
+										value="#{eventCreationBean.eventCreationFormVM.projectCategories}"
+										var="category" itemValue="#{category}"
+										itemLabel="#{category.projectCategoryLabel}" />
+								</p:selectOneMenu>
+							</div>
+							<div class="col-12 col-md-6">
+								<p:selectOneMenu
+									value="#{eventCreationBean.eventCreationFormVM.projectRange}"
+									required="true">
+									<f:selectItem itemLabel="Sélection" itemValue="" />
+									<f:selectItems
+										value="#{eventCreationBean.eventCreationFormVM.projectRanges}"
+										var="range" itemValue="#{range}"
+										itemLabel="#{range.projectRangeLabel}" />
+
+								</p:selectOneMenu>
+							</div>
+						</div>
+					</div>
+
+					<div class="col-12 col-md-5 mt-3">
+						<div class="ui-inputgroup">
+							<div class="ui-inputgroup-addon">
+								<i class="fa-solid fa-user"></i>
+							</div>
+							<p:spinner placeholder="Nombre de volontaires souhaité" min="1"
+								upButtonStyleClass="ui-button-secondary"
+								downButtonStyleClass="ui-button-secondary"
+								value="#{eventCreationBean.eventCreationFormVM.volunteerTarget}"
+								id="VolunteerTargetInput" required="true" />
+						</div>
+					</div>
+
+
+				</div>
+
+				<div class="ui-fluid row">
+					<div class="col-12 col-md-1 mt-3"></div>
+					<div class="col-12 col-md-10 mt-3">
+						<p:inputTextarea placeholder="Résumé de l'évènement"
+							value="#{eventCreationBean.eventCreationFormVM.summary}"
+							id="SummaryInput" />
+					</div>
+				</div>
+
+				<div class="ui-fluid row">
+					<div class="col-12 col-md-1 mt-3"></div>
+					<div class="col-12 col-md-10 mt-3">
+						<p:fileUpload skinSimple="true"
+							uploadButtonStyleClass="ui-button-outlined ui-button-secondary"
+							chooseButtonStyleClass="ui-button-outlined ui-button-secondary"
+							cancelButtonStyleClass="ui-button-outlined ui-button-secondary"
+							label="Choisissez une image" mode="advanced" sizeLimit="5000000"
+							fileLimit="1" accept=".gif,.jpg,.jpeg,.png"
+							invalidSizeMessage="L'image ne doit pas dépasser 5 Mo"
+							listener="#{eventCreationBean.uploadFile}" required="true" />
+
+					</div>
+
+				</div>
+			</div>
+
+			<f:facet name="footer">
+				<div class="col-12 d-grid">
+					<p:commandButton
+						styleClass="ui-button-outlined ui-button-secondary rounded-pill"
+						action="#{eventCreationBean.createEvent(organizationSpaceBean.orgAccount.organizationSpace.id)}"
+						oncomplete="PF('eventCreationPop').hide()" value="Valider"
+						validateClient="true" />
+				</div>
+			</f:facet>
+		</p:dialog>
+	</h:form>
+</h:body>
+</html>

@@ -1,0 +1,75 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:body>
+	<ui:composition template="/WEB-INF/template/layout.xhtml">
+
+		<f:metadata>
+			<f:viewParam name="id" />
+			<f:event listener="#{orderSummaryBean.onLoad(id)}" type="preRenderView" />
+		</f:metadata>
+
+		<ui:define name="css">
+			<link rel="stylesheet" href="css/cartPage.css" />
+		</ui:define>
+		<ui:define name="content">
+
+			<div class="ui-fuild row text-center  my-5">
+				<h1>Votre Commande</h1>
+			</div>
+
+			<div class="container my-5 p-5 shadow rounded" id="containerMain">
+				<div class="ms-3 mb-5">
+					Date:
+					<p:outputLabel value="#{orderSummaryBean.order.date}">
+						<f:convertDateTime type="date" dateStyle="full" />
+					</p:outputLabel>
+				</div>
+
+				<div class="m-3 text-center">
+					<p:dataTable var="orderLine" value="#{orderSummaryBean.order.orderLines}" lazy="false">
+						<p:column headerText="Article">
+							<p:outputLabel value="#{orderLine.item.label}" />
+						</p:column>
+						<p:column headerText="Aperçu">
+							<p:graphicImage value="#{orderLine.item.imagePath}"/>
+						</p:column>
+						<p:column headerText="Prix unitaire">
+							<h:outputLabel value="#{orderLine.item.price}" />
+						€
+					</p:column>
+						<p:column headerText="Quantité">
+							<p:outputLabel value="#{orderLine.quantity}" />
+						</p:column>
+						<p:column headerText="Prix partiel">
+							<p:outputLabel value="#{orderLine.item.price*orderLine.quantity}" />
+						€
+					</p:column>
+
+
+					</p:dataTable>
+				</div>
+
+				<div class="row">
+					<div class="col-12 offset-8 col-md-2 my-auto">Montant total:
+						#{orderSummaryBean.order.totalPrice} €</div>
+					<div class="col-12 col-md-1">
+						<h:form>
+							<p:linkButton icon="fa-regular fa-file-pdf" value="Facture"
+								styleClass="ui-button-secondary" action="#">
+
+							</p:linkButton>
+						</h:form>
+					</div>
+				</div>
+			</div>
+		</ui:define>
+
+	</ui:composition>
+</h:body>
+</html>

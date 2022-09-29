@@ -1,0 +1,73 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:p="http://primefaces.org/ui">
+
+
+<h:body>
+
+	<div class="card">
+		<h:form id="orgForm" styleClass="shadow">
+
+			<p:growl id="messagesOrg" showDetail="true" />
+			<p:dataTable var="org" value="#{adminDashboardBean.orgs}"
+				id="dt-orgs" reflow="true" editable="true" editMode="cell"
+				editInitEvent="dblclick" rowKey="#{org.id}" paginator="true"
+				rows="7" paginatorPosition="bottom" widgetVar="dtOrgs">
+
+				<f:attribute name="orgAttr" value="#{org}" />
+				<p:ajax event="cellEdit"
+					listener="#{adminDashboardBean.onOrgCellEdit}"
+					update="@form:messagesOrg" />
+
+				<p:column headerText="Id">
+					<h:outputText value="#{org.id}" />
+				</p:column>
+				<p:column headerText="Image">
+					<p:graphicImage value="#{org.imagePath}" />
+				</p:column>
+
+				<p:column headerText="Nom">
+					<p:link outcome="pageOng?id=#{org.id}faces-redirect=true">
+						<h:outputText value="#{org.displayedName}" />
+					</p:link>
+				</p:column>
+
+				<p:column headerText="Email">
+					<h:outputText value="#{org.email}" />
+				</p:column>
+
+				<p:column headerText="Statut">
+					<p:cellEditor>
+						<f:facet name="output">
+							<h:outputText value="#{org.accountStatus}" />
+						</f:facet>
+						<f:facet name="input">
+							<h:selectOneMenu value="#{org.accountStatus}" style="width:100%">
+								<f:selectItems value="#{adminDashboardBean.accountStatus}"
+									var="status" itemLabel="#{status.name()}" itemValue="#{status}" />
+							</h:selectOneMenu>
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+
+				<p:column exportable="false">
+					<p:commandButton class="ui-button-warning rounded-button"
+						icon="pi pi-envelope" oncomplete="PF('sendMailDialog').show()"
+						process="@this" update="@([id$=mailFormDialog])">
+						
+						<f:setPropertyActionListener value="#{org}"
+							target="#{adminDashboardBean.selectedOrg}" />
+
+					</p:commandButton>
+				</p:column>
+			</p:dataTable>
+
+		</h:form>
+	</div>
+</h:body>
+
+</html>

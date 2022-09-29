@@ -1,0 +1,65 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:body>
+
+	<ui:composition template="/WEB-INF/template/layout.xhtml">
+
+		<ui:define name="content">
+			<br />
+			<div class="ui-fuild row">
+				<h1 class="text-center">Devenir Partenaire</h1>
+			</div>
+			<br />
+			<div class="container shadow py-3 5px-5 mt-5">
+				<h5 class="text-center">Devenez partenaire eFUND</h5>
+				<p>Augmentez votre CA en soutenant une ONG avec des dons et
+					gagner une image forte pour votre société !</p>
+				<p>
+					<h:outputLink value="mailto:nacer.benchehida10@gmail.com">
+						<f:param name="subject" value="Devenir Partenaire" />
+						<f:param name="body" value="Bonjour" />
+						<h:outputText value="DEVENIR PARTENAIRE" />
+					</h:outputLink>
+				</p>
+			</div>
+			<br />
+			<div class="container shadow py-3 5px-5 mt-5">
+				<h5 class="text-center">POURQUOI DEVENIR PARTENAIRE ?</h5>
+				<p>Augmentez votre chiffre d'affaires et élargissez votre base
+					client.</p>
+				<p>Bénéficiez de l'effet viral du service</p>
+			</div>
+			<br />
+			<div class="container shadow py-3 5px-5 mt-5">
+				<h5 class="text-center">POURQUOI eFUND</h5>
+				<p>Des cagnottes créées toute l'année pour toutes les projets et
+					par des ONG</p>
+				<p>Des boutiques en lignes pour les ONG</p>
+				<p>Des évènements pour rassembler les associations et les
+					personnes</p>
+			</div>
+			<br />
+			<br />
+			<div class="container shadow py-3 5px-5 mt-5">
+				<h5 class="text-center">VOTRE MARQUE VISIBLE SUR NOS DIFFÉRENTS
+					SUPPORTS</h5>
+				<p>Profitez gratuitement des différentes mises en avant
+					marketing de Leetchi.com pour ses partenaires</p>
+				<p>Référencement sur notre page Partenaires</p>
+				<p>Echange avec nos ONG pour échnager, partager votre marque</p>
+			</div>
+			<br />
+
+
+
+		</ui:define>
+
+	</ui:composition>
+</h:body>
+</html>

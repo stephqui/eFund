@@ -1,0 +1,118 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:p="http://primefaces.org/ui">
+
+<f:metadata>
+	<f:viewParam name="id" />
+</f:metadata>
+
+<h:body>
+
+	<ui:composition template="/WEB-INF/template/layout.xhtml">
+
+		<ui:define name="css">
+			<link rel="stylesheet" href="css/creation.css" />
+		</ui:define>
+
+		<ui:define name="content">
+			<div class="container shadow p-5 my-5">
+				<h1>Informations de l'Association/ONG</h1>
+				<hr />
+				<h:form id="createOrgFormBis">
+
+					<div class="ui-fluid row">
+						<div class="col-12 col-md-1 mt-3"></div>
+						<div class="col-12 col-md-10 mt-3">
+							<p:steps activeIndex="1" styleClass="Custom">
+								<p:menuitem value="Création du compte" />
+								<p:menuitem value="Enregistrement des informations" />
+							</p:steps>
+						</div>
+					</div>
+
+					<br />
+
+					<div class="ui-fluid row">
+						<div class="col-12 col-md-1 mt-3"></div>
+						<div class="col-12 col-md-5 mt-3">
+							<div class="ui-inputgroup">
+								<div class="ui-inputgroup-addon">
+									<i class="pi pi-map"></i>
+								</div>
+								<p:inputText placeholder="Nom complet de l'association"
+									value="#{createOrganizationAccountBean.organization.organizationName}"
+									id="OrgNameInput" required="true" />
+							</div>
+						</div>
+						<div class="col-12 col-md-5 mt-3">
+							<div class="ui-inputgroup">
+								<div class="ui-inputgroup-addon">
+									<i class="pi pi-calendar"></i>
+								</div>
+								<p:inputText placeholder="Siret"
+									value="#{createOrganizationAccountBean.organization.siret}"
+									id="siretInput" required="true" />
+							</div>
+						</div>
+					</div>
+
+					<div class="ui-fluid row">
+						<div class="col-12 col-md-1 mt-3"></div>
+						<div class="col-12 col-md-10 mt-3">
+							<p:inputTextarea placeholder="Résumé de l'association"
+								value="#{createOrganizationAccountBean.organization.summary}"
+								id="OrgSummaryInput" required="true" />
+						</div>
+					</div>
+
+					<div class="ui-fluid row">
+						<div class="col-12 col-md-1 mt-3"></div>
+						<div class="col-12 col-md-10 mt-3">
+							<p:inputTextarea
+								placeholder="Description complète de l'association"
+								value="#{createOrganizationAccountBean.organization.description}"
+								id="OrgDescriptionInput" />
+						</div>
+					</div>
+
+					<div class="ui-fluid row">
+						<div class="col-12 col-md-1 mt-3"></div>
+						<div class="col-12 col-md-10 mt-3">
+							<p:fileUpload skinSimple="true"
+								uploadButtonStyleClass="ui-button-outlined ui-button-secondary"
+								chooseButtonStyleClass="ui-button-outlined ui-button-secondary"
+								cancelButtonStyleClass="ui-button-outlined ui-button-secondary"
+								label="Choisissez une image" mode="advanced" sizeLimit="5000000"
+								fileLimit="1" accept=".gif,.jpg,.jpeg,.png"
+								invalidSizeMessage="L'image ne doit pas dépasser 5 Mo"
+								listener="#{createOrganizationAccountBean.upload}" />
+
+						</div>
+
+					</div>
+
+					<div class="row">
+						<div class="col-12 col-md-1 mt-3"></div>
+						<div class="col-12 col-md-5 mt-4 d-grid">
+							<p:commandButton styleClass="ui-button-outlined rounded-pill"
+								action="#" value="Annuler" />
+						</div>
+						<div class="col-12 col-md-5 mt-4 d-grid">
+							<p:commandButton styleClass="ui-button-outlined rounded-pill"
+								action="#{createOrganizationAccountBean.modify(id)}"
+								value="Valider" validateClient="true" />
+						</div>
+					</div>
+
+				</h:form>
+
+			</div>
+
+		</ui:define>
+	</ui:composition>
+</h:body>
+</html>

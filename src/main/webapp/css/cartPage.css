@@ -1,0 +1,32 @@
+td img {
+	object-fit: cover;
+	object-position: center;
+	max-height: 120px;
+	border-style: solid;
+	border-width: 1px;
+	border-color: #426CB4;
+	border-radius: 20px;
+}
+
+#containerMain{
+	border-style:solid;
+	border-width:1px;
+	border-color: #426CB4;
+	border-radius: 20px;
+}
+
+h1{
+	color: #426CB4;
+}
+
+.ui-button.ui-button-outlined{
+	color: #426CB4 !important
+}
+
+.ui-datatable-header{
+	text-align: center !important;
+}		
+
+body .ui-datatable thead th {
+	text-align: center !important;
+}

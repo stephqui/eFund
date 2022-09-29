@@ -1,0 +1,107 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:p="http://primefaces.org/ui">
+
+
+<h:body>
+
+	<div class="card">
+		<h:form id="userForm" styleClass="shadow">
+
+			<p:growl id="messagesUser" showDetail="true" />
+			<p:dataTable var="user" value="#{adminDashboardBean.users}"
+				id="dt-users" reflow="true" editable="true" editMode="cell"
+				editInitEvent="dblclick" rowKey="#{user.id}" paginator="true"
+				rows="7" paginatorPosition="bottom" widgetVar="dtUsers">
+
+				<f:attribute name="userAttr" value="#{user}" />
+				<p:ajax event="cellEdit"
+					listener="#{adminDashboardBean.onUserCellEdit}"
+					update="@form:messagesUser" />
+
+				<p:column headerText="Id">
+					<h:outputText value="#{user.id}" />
+				</p:column>
+				<p:column headerText="Image">
+					<p:graphicImage value="#{user.imagePath}" />
+				</p:column>
+
+				<p:column headerText="Nom">
+					<p:link outcome="userProfil?id=#{user.id}faces-redirect=true">
+						<h:outputText value="#{user.displayedName}" />
+					</p:link>
+				</p:column>
+
+				<p:column headerText="Email">
+					<h:outputText value="#{user.email}" />
+				</p:column>
+
+				<p:column headerText="Statut">
+					<p:cellEditor>
+						<f:facet name="output">
+							<h:outputText value="#{user.accountStatus}" />
+						</f:facet>
+						<f:facet name="input">
+							<h:selectOneMenu value="#{user.accountStatus}" style="width:100%">
+								<f:selectItems value="#{adminDashboardBean.accountStatus}"
+									var="status" itemLabel="#{status.name()}" itemValue="#{status}" />
+							</h:selectOneMenu>
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+
+
+				<p:column exportable="false">
+					<div class="row">
+						<div class="col-12 col-sm">
+							<p:commandButton class="ui-button-warning rounded-button"
+								icon="pi pi-envelope" oncomplete="PF('sendMailDialog').show()"
+								process="@this" update="@([id$=mailFormDialog])">
+								<f:setPropertyActionListener value="#{user}"
+									target="#{adminDashboardBean.selectedUser}" />
+								
+							</p:commandButton>
+						</div>
+						<div class="col-12 col-sm">
+							<p:commandButton class="ui-button-danger rounded-button"
+								icon="pi pi-trash" process="@this"
+								oncomplete="PF('deleteUserDialog').show()">
+								<f:setPropertyActionListener value="#{user}"
+									target="#{adminDashboardBean.selectedUser}" />
+							</p:commandButton>
+						</div>
+					</div>
+				</p:column>
+			</p:dataTable>
+
+			<p:confirmDialog widgetVar="deleteUserDialog" showEffect="fade"
+				width="300" message="Supprimer le compte Utilisateur ?"
+				header="Confirmer" severity="warn">
+				<h:outputText value="#{adminDashboardBean.selectedUser}" />
+				<p:commandButton value="Yes" icon="pi pi-check"
+					actionListener="#{adminDashboardBean.deleteUser}" process="@this"
+					oncomplete="PF('deleteUserDialog').hide()" />
+				<p:commandButton value="No" type="button"
+					styleClass="ui-button-secondary" icon="pi pi-times"
+					onclick="PF('deleteUserDialog').hide()" />
+			</p:confirmDialog>
+
+			<p:confirmDialog global="true" showEffect="fade" width="300">
+				<p:commandButton value="Oui" type="button"
+					styleClass="ui-confirmdialog-yes" icon="pi pi-check" />
+				<p:commandButton value="No" type="button"
+					styleClass="ui-confirmdialog-no ui-button-secondary"
+					icon="pi pi-times" />
+			</p:confirmDialog>
+
+
+		</h:form>
+
+	</div>
+</h:body>
+
+</html>

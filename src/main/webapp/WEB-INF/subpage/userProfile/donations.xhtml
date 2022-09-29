@@ -1,0 +1,40 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.proj/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:p="http://primefaces.org/ui">
+
+
+<h:body>
+
+	<div class="card">
+		<p:dataTable var="don" value="#{userProfilBean.donations}">
+
+			<p:column headerText="Image">
+				<p:graphicImage value="#{don.project.imagePath}" />
+			</p:column>
+
+			<p:column headerText="Nom">
+				<h:form>
+					<p:commandLink type="button" action="#{userProfilBean.redirectToProjectPage(don.project)}">
+						<h:outputText value="#{don.project.name}" />
+					</p:commandLink>
+				</h:form>
+			</p:column>
+
+			<p:column headerText="Montant du Don">
+				<h:outputText value="#{don.amount} €" />
+			</p:column>
+
+			<p:column headerText="Fin de la campagne">
+				<h:outputText value="#{don.project.endDate}" />
+			</p:column>
+
+		</p:dataTable>
+
+	</div>
+</h:body>
+
+</html>

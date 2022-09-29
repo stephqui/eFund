@@ -1,0 +1,126 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:body>
+
+	<ui:composition template="/WEB-INF/template/layout.xhtml">
+
+		<ui:define name="content">
+			<br />
+			<div class="ui-fuild row">
+				<h1 class="text-center">EFUND est la caqnotte en ligne</h1>
+			</div>
+			<br />
+			<div class="container shadow py-3 5px-5 mt-5">
+
+				<h5>Pour tous vos projets.</h5>
+			</div>
+			<br />
+			<br />
+			<div class="ui-fuild row">
+				<h1 class="text-center">Comment ça marche ?</h1>
+			</div>
+			<br />
+			<div class="container shadow py-3 5px-5 mt-5">
+
+				<h5>eFUND vous permet de collecter simplement de l'argent, en 4
+					étapes.</h5>
+			</div>
+			<br />
+			<div class="container shadow py-3 5px-5 mt-5">
+				<div class="accordion" id="accordionExample">
+					<div class="accordion-item">
+						<h2 class="accordion-header" id="headingOne">
+							<button class="accordion-button" type="button"
+								data-bs-toggle="collapse" data-bs-target="#collapseOne"
+								aria-expanded="true" aria-controls="collapseOne">
+								<h5>1. Je crée</h5>
+							</button>
+						</h2>
+						<div id="collapseOne" class="accordion-collapse collapse show"
+							aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+							<div class="accordion-body">
+								<p>Je crée ma cagnotte en quelques clics</p>
+							</div>
+						</div>
+					</div>
+					<div class="accordion-item">
+						<h2 class="accordion-header" id="headingTwo">
+							<button class="accordion-button collapsed" type="button"
+								data-bs-toggle="collapse" data-bs-target="#collapseTwo"
+								aria-expanded="false" aria-controls="collapseTwo">
+								<h5>2. J'invite et je partage</h5>
+							</button>
+						</h2>
+						<div id="collapseTwo" class="accordion-collapse collapse"
+							aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+							<div class="accordion-body">
+								<p>J'invite mes proches à y participer et je la partage sur
+									les réseaux sociaux</p>
+							</div>
+						</div>
+					</div>
+					<div class="accordion-item">
+						<h2 class="accordion-header" id="headingThree">
+							<button class="accordion-button collapsed" type="button"
+								data-bs-toggle="collapse" data-bs-target="#collapseThree"
+								aria-expanded="false" aria-controls="collapseThree">
+								<h5>3. Je collecte</h5>
+							</button>
+						</h2>
+						<div id="collapseThree" class="accordion-collapse collapse"
+							aria-labelledby="headingThree" data-bs-parent="#accordionExample">
+							<div class="accordion-body">
+								<p>Les participations se font très simplement depuis votre
+									compte.</p>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="accordion-item">
+					<h2 class="accordion-header" id="headingfour">
+						<button class="accordion-button collapsed" type="button"
+							data-bs-toggle="collapse" data-bs-target="#collapseFour"
+							aria-expanded="false" aria-controls="collapseFour">
+							<h5>4. Je dépense</h5>
+						</button>
+					</h2>
+					<div id="collapseFour" class="accordion-collapse collapse"
+						aria-labelledby="headingFour" data-bs-parent="#accordionExample">
+						<div class="accordion-body">
+							<p>Je dépense pour le projet, je demande un virement bancaire</p>
+						</div>
+					</div>
+				</div>
+			</div>
+			<br />
+			<div class="ui-fuild row">
+				<h1 class="text-center">Une tarification simple et claire</h1>
+			</div>
+			<br />
+			<div class="container shadow py-3 5px-5 mt-5">
+				<h5>Pas de frais de création de cagnotte</h5>
+				<p>La création de votre cagnotte et de votre compte est
+					entièrement gratuite.</p>
+			</div>
+			<br />
+			<br />
+			<div class="container shadow py-3 5px-5 mt-5">
+				<h5>Demande de virement</h5>
+				<p>Une commission dégressive en fonction du montant collecté :</p>
+				<p>4 % en dessous de 2000 €</p>
+				<p>2,9 % de 2000€ à 200 000 €</p>
+				<p>1,9 % au dessus de 200 000 €</p>
+			</div>
+			<br />
+
+		</ui:define>
+
+	</ui:composition>
+</h:body>
+</html>

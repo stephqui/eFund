@@ -1,0 +1,122 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:p="http://primefaces.org/ui">
+
+<f:metadata>
+	<f:viewParam name="id" />
+	<f:event listener="#{userProfilBean.onLoad(id)}"
+		type="preRenderView"></f:event>
+</f:metadata>
+
+<h:body>
+
+	<ui:composition template="/WEB-INF/template/layout.xhtml">
+
+		<ui:define name="css">
+			<link rel="stylesheet" href="css/userProfil.css" />
+		</ui:define>
+
+		<ui:define name="content">
+
+			<div class="container-fluid p-5" id="userProfilBody">
+
+				<div class="row">
+					<div class="col-12 col-md-2 mb-3">
+						<img class="img-fluid rounded-3 shadow"
+							src="#{request.contextPath}#{userProfilBean.userAccount.imagePath}" />
+					</div>
+
+					<div class="col-12 col-md-9">
+						<div class="row">
+							<div class="col-12 col-md-1 my-auto ps-5 pe-0">
+								<p:linkButton icon="pi pi-cog"
+									styleClass="rounded-button ui-button-secondary ui-button-flat"
+									title="Modifier mes informations" outcome="userModificationForm" />
+							</div>
+							<div class="col-12 col-md-5">
+								<h1>#{userProfilBean.userAccount.userInfo.firstName}
+									#{userProfilBean.userAccount.userInfo.lastName}</h1>
+							</div>
+							<div class="col-12 col-md-6 my-auto">
+							</div>
+
+						</div>
+						<br />
+						<div class="row">
+							<div class="col-12 col-md-1"></div>
+							<div class="col-12 col-md-11">
+								<h5>#{userProfilBean.userAccount.email}</h5>
+							</div>
+						</div>
+						<br />
+						<div class="row">
+							<div class="col-12 col-md-1"></div>
+							<div class="col-12 col-md-5">
+								<h5>Adresse:</h5>
+								<h5>#{userProfilBean.userAccount.userInfo.userAddress.address}</h5>
+								<h5>#{userProfilBean.userAccount.userInfo.userAddress.zipcode}
+									#{userProfilBean.userAccount.userInfo.userAddress.city} -
+									#{userProfilBean.userAccount.userInfo.userAddress.country}</h5>
+							</div>
+							<div class="col-12 col-md-6">
+								<h5>Téléphone:</h5>
+								<h5>#{userProfilBean.userAccount.userInfo.phone}</h5>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<br />
+
+				<div class="row">
+
+					<div class="col-12 col-md-12">
+						<!-- les tab -->
+						<p:tabView>
+							
+							<!-- Mes favoris dataTable -->
+							<p:tab>
+								<f:facet name="title">
+									<i class="fa-solid fa-star" /> Favoris
+								</f:facet>
+									<ui:include src="WEB-INF/subpage/userProfile/favorites.xhtml" />
+								</p:tab>
+
+							<!-- Mes donnations dataTable -->
+							<p:tab>
+								<f:facet name="title">
+									<i class="fa-solid fa-euro-sign" /> Mes donations
+								</f:facet>
+									<ui:include src="WEB-INF/subpage/userProfile/donations.xhtml" />
+								
+							</p:tab>
+
+							<!-- Mes évènements dataTable -->
+							<p:tab>
+								<f:facet name="title">
+									<i class="fa-regular fa-calendar-check" /> Mes évènements
+								</f:facet>
+
+								<ui:include src="WEB-INF/subpage/userProfile/eventRegistrations.xhtml" />
+							</p:tab>
+
+							<!-- Mes commandes dataTable -->
+							<p:tab title="Mes commandes">
+								<f:facet name="title">
+									<i class="fa-solid fa-cart-shopping" /> Mes commandes
+								</f:facet>
+								<ui:include src="WEB-INF/subpage/userProfile/orders.xhtml" />
+							</p:tab>
+						</p:tabView>
+					</div>
+				</div>
+			</div>
+		</ui:define>
+
+	</ui:composition>
+</h:body>
+</html>

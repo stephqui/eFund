@@ -1,0 +1,47 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:body>
+	<h:form id="addFaq">
+		<p:dialog widgetVar="addFaqPop" modal="true">
+			<f:facet name="header">
+				<h1>Nouvelle question</h1>
+			</f:facet>
+
+			<div class="container-fluid shadow p-5"
+				style="width: 33vw; height: 50vh">
+				<div class="col-12 mt-3">
+					<div class="ui-inputgroup">
+						<div class="ui-inputgroup-addon">
+							<i class="fa-solid fa-circle-question"></i>
+						</div>
+						<p:inputTextarea placeholder="Question à ajouter"
+						value="#{eventPageBean.faqVM.question}"
+						autoResize="false" style="height:100%; width:100%" />
+					</div>
+				</div>
+				<div class="col-12 mt-3">
+					<p:inputTextarea placeholder="Réponse à ajouter"
+						value="#{eventPageBean.faqVM.answer}"
+						autoResize="false" style="height:100%; width:100%" />
+				</div>
+			</div>
+
+			<f:facet name="footer">
+				<div class="col-12 d-grid">
+					<h:commandButton
+						styleClass="ui-button-outlined ui-button-secondary rounded-pill"
+						action="#{eventPageBean.addFaq()}"
+						oncomplete="PF('addFaqPop').hide()" value="Valider" />
+				</div>
+			</f:facet>
+
+		</p:dialog>
+	</h:form>
+</h:body>
+</html>

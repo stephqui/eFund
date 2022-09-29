@@ -1,0 +1,62 @@
+#projectPageBody .ui-tabs.ui-tabs-top .ui-tabs-nav li.ui-state-default {
+	border-top-left-radius: 20px;
+	border-top-right-radius: 20px;
+	margin: 10px 0px 0px 10px;
+}
+
+#projectPageBody .ui-tabs.ui-tabs-top .ui-tabs-nav li.ui-state-active {
+	border: 2px solid !important;
+	border-top-left-radius: 20px;
+	border-top-right-radius: 20px;
+	margin: 10px 0px 0px 10px;
+}
+
+#projectPageBody .ui-tabs-nav {
+	background-color: #ededed !important;
+}
+
+#projectPageBody .ui-tabs-panels {
+	margin: 0px 10px !important;
+	border-radius: 0px 20px 20px 20px !important;
+}
+
+#projectPageBody .ui-card-header img {
+	border-top-left-radius: 20px;
+	border-top-right-radius: 20px;
+}
+
+#projectPageBody .ui-card {
+	border-radius: 20px !important;
+	border: 2px solid;
+}
+
+#projectPageBody .ui-tabs-nav:before {
+	border: 0px !important;
+}
+
+#projectPageBody {
+	background-color: #ededed;
+}
+
+#containerBorder {
+	border-style:solid;
+	border-width:1px;
+	border-color: #426CB4;
+	border-radius: 20px;
+}
+
+.knob-container {
+	margin: auto;
+	width: 45%;
+}
+
+hr {
+	opacity: 1;
+	background-color: #426CB4;
+	height: 1px !important;
+	border: none;
+}
+
+.img-fluid {
+	border-radius: 20px;
+}

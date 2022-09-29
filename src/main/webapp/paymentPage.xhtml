@@ -1,0 +1,62 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:body>
+
+	<ui:composition template="/WEB-INF/template/layout.xhtml">
+
+		<ui:define name="content">
+			<h:outputLabel id="CB_title" value="eFund" />
+			<h:form id="createCBpaymentForm">
+				<h:panelGrid columns="2">
+					<h:outputLabel id="montant_du_don_lbl" value="Montant du don" />
+					<h:inputText id="amount"
+						value="#{createPaymentBean.paymentForm.amount}" />
+				</h:panelGrid>
+
+				<h:panelGrid columns="2">
+					<h:outputLabel id="nom_sur_la_carte_lbl" value="Nom sur la carte" />
+					<h:inputText id="nom_sur_carte" placeholder="Nom sur la carte"
+						value="#{createPaymentBean.paymentForm.name}" />
+				</h:panelGrid>
+
+				<h:panelGrid columns="2">
+					<h:outputLabel id="numero_de_carte_lbl" value="Numéro de carte" />
+					<h:inputText id="numero_de_carte" placeholder="Numero de carte"
+						value="#{createPaymentBean.paymentForm.cardNumber}" />
+				</h:panelGrid>
+
+				<h:panelGrid columns="2">
+					<h:outputLabel id="date_expiration_lbl" value="Date d'expiration" />
+					<h:inputText id="date_expiration" placeholder="01/22"
+						value="#{createPaymentBean.paymentForm.expirationDate}">
+						<f:convertDateTime pattern="MM/yy" />
+					</h:inputText>
+				</h:panelGrid>
+
+				<h:panelGrid columns="2">
+					<h:outputLabel id="code_securite" value="Code de sécurité" />
+					<h:inputText id="code_de_securite" placeholder="999"
+						value="#{createPaymentBean.paymentForm.securityCode}" />
+				</h:panelGrid>
+
+				<h:panelGrid columns="2">
+					<h:outputLabel id="code_postal_lbl" value="Code postal" />
+					<h:inputText id="code_postal" placeholder="00000"
+						value="#{createPaymentBean.paymentForm.zipCode}" />
+				</h:panelGrid>
+				<h:commandButton id="submit" value="modifier"
+					action="#{createPaymentBean.createInvoice()}"></h:commandButton>
+
+
+			</h:form>
+		</ui:define>
+
+	</ui:composition>
+</h:body>
+</html>

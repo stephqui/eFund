@@ -1,0 +1,43 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/WEB-INF/template/layout.xhtml">
+	<ui:define name="content">
+		<div class="container shadow p-5 mt-5">
+			<h1>Envoyer un message à</h1>
+			<h5 class="text-primary">placeholde@hotmail.com</h5>
+			<hr class="bg-primary" />
+			<h:form id="mailForm">
+				<h:inputHidden value="#{adminDashboardBean.mailForm.toMail}" />
+				<div class="ui-fluid row d-grid">
+
+					<div class="ui-inputgroup ">
+						<div class="ui-inputgroup-addon">
+							<i class="fa-solid fa-heading"></i>
+						</div>
+						<p:inputText placeholder="Sujet" value="#{adminDashboardBean.mailForm.subject}" id="LoginEmailInput" />
+					</div>
+
+				</div>
+
+				<div class="ui-fluid row mt-3 d-grid">
+					<div class="col-12">
+						<p:outputLabel for="message" value="Message : "/>
+						<p:inputTextarea placeholder="Ecrivez votre message..." value="#{adminDashboardBean.mailForm.message}"
+							id="message" />
+					</div>
+				</div>
+				<div class="mt-3 d-grid">
+					<p:commandButton styleClass="ui-button-outlined ui-button-secondary rounded-pill" action="#{adminDashboardBean.sendingMail()}" value="Envoyer"/>
+				</div>
+			</h:form>
+
+		</div>
+	</ui:define>
+</ui:composition>
+</html>

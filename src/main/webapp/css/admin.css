@@ -1,0 +1,33 @@
+.ui-datatable .ui-datatable-data{
+	font-size: 15px;
+}
+
+td img {
+	object-fit: cover;
+	object-position: center;
+	max-height: 120px;
+}
+
+/* 7.5 x 8 = 60% de la hauteur de l'écran */
+.ui-tabs-nav li{
+	height: 7.5vh;
+}
+
+/** tabs **/
+.ui-tabs.ui-tabs-left > .ui-tabs-nav {
+   width: 15% !important;
+}
+
+.container-fluid {
+	width: 90% !important;
+}
+
+/** panels **/
+.ui-tabs.ui-tabs-left > .ui-tabs-panels {
+   width: 85% !important;
+   margin: 10px 10px 10px 10px !important;
+}
+
+h2{
+	color: #426CB4;
+}

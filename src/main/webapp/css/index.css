@@ -1,0 +1,35 @@
+.img-fond {
+    background-image: url("../img/Background50Alpha.png");
+    background-repeat: no-repeat;
+    background-size: cover; 
+    background-position: center;
+    height: 300px;
+    position: ralative;
+    }
+    
+.container{
+	border-style:solid;
+	border-width:0px;
+	border-color: #426CB4;
+	border-radius: 20px;
+}
+
+h5{
+	color:#4f4f4f;
+}
+
+h1, h4{
+	color: #426CB4;
+}
+
+hr{
+	opacity: 1;
+	background-color: #426CB4;
+	height: 1px !important;
+	border: none;
+	width: 50%;
+	margin:auto;
+}
+.img-fluid{
+	border-radius: 20px;
+}

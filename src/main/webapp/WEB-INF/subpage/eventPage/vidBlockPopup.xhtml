@@ -1,0 +1,42 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:body>
+	<h:form id="addVidBlockForm">
+		<p:dialog widgetVar="addVidBlockPop" modal="true">
+			<f:facet name="header">
+				<h1>Nouvelle vidéo</h1>
+				<h4>Format : .mp4 .webm .ogg</h4>
+			</f:facet>
+			
+			<div class="container-fluid shadow p-5"
+				style="width: 33vw; height: 50vh">
+				<p:fileUpload skinSimple="true"
+								uploadButtonStyleClass="ui-button-outlined ui-button-secondary"
+								chooseButtonStyleClass="ui-button-outlined ui-button-secondary"
+								cancelButtonStyleClass="ui-button-outlined ui-button-secondary"
+								label="Choisissez une image"
+								mode="advanced" sizeLimit="10000000" fileLimit="1"
+								accept=".mp4, .webm, .ogg"
+								invalidSizeMessage="L'image ne doit pas dépasser 10 Mo"
+								listener="#{eventPageBean.uploadFile}" />
+			</div>
+
+			<f:facet name="footer">
+				<div class="col-12 d-grid">
+					<h:commandButton
+						styleClass="ui-button-outlined ui-button-secondary rounded-pill"
+						action="#{eventPageBean.createBlock('vid')}"
+						oncomplete="PF('addVidBlockPop').hide()" value="Valider" />
+				</div>
+			</f:facet>
+
+		</p:dialog>
+	</h:form>
+</h:body>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.proj/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:p="http://primefaces.org/ui">
+
+
+<h:body>
+
+	<div class="card">
+
+		<p:dataTable var="fav" value="#{userProfilBean.favorites}" sortMode="single" allowUnsorting="true">
+
+			<p:column headerText="Image">
+				<p:graphicImage value="#{fav.genericProject.imagePath}" />
+			</p:column>
+
+			<p:column headerText="Nom" sortBy="#{fav.genericProject.name}">
+				<h:form>
+					<p:commandLink type="button" action="#{userProfilBean.redirectToProjectPage(fav.genericProject)}">
+						<h:outputText value="#{fav.genericProject.name}" />
+					</p:commandLink>
+				</h:form>
+			</p:column>
+
+			<p:column headerText="Catégorie" sortBy="#{fav.genericProject.projectCategory}">
+				<h:outputText value="#{fav.genericProject.projectCategory}" />
+			</p:column>
+
+			<p:column headerText="Fin de la campagne" sortBy="#{fav.genericProject.endDate}">
+				<h:outputText value="#{fav.genericProject.endDate}" />
+			</p:column>
+
+		</p:dataTable>
+
+	</div>
+</h:body>
+
+</html>

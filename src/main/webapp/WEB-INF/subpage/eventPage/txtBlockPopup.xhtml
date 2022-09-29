@@ -1,0 +1,35 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:body>
+	<h:form id="addTxtBlockForm">
+		<p:dialog widgetVar="addTxtBlockPop" modal="true">
+			<f:facet name="header">
+				<h1>Nouveau texte</h1>
+			</f:facet>
+			
+			<div class="container-fluid shadow p-5"
+				style="width: 33vw; height: 50vh">
+				<p:inputTextarea placeholder="Bloc de texte à ajouter"
+					value="#{eventPageBean.contentVM.content}"
+					autoResize="false" style="height:100%; width:100%" />
+			</div>
+
+			<f:facet name="footer">
+				<div class="col-12 d-grid">
+					<h:commandButton
+						styleClass="ui-button-outlined ui-button-secondary rounded-pill"
+						action="#{eventPageBean.createBlock('txt')}"
+						oncomplete="PF('addTxtBlockPop').hide()" value="Valider" />
+				</div>
+			</f:facet>
+
+		</p:dialog>
+	</h:form>
+</h:body>
+</html>

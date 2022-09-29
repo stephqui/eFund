@@ -1,0 +1,36 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.proj/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:p="http://primefaces.org/ui">
+
+
+<h:body>
+
+	<div class="card">
+		<p:dataTable var="reg" value="#{userProfilBean.registrations}">
+
+			<p:column headerText="Image">
+				<p:graphicImage value="#{reg.event.imagePath}" />
+			</p:column>
+
+			<p:column headerText="Nom">
+				<h:form>
+					<p:commandLink type="button" action="#{userProfilBean.redirectToProjectPage(reg.event)}">
+						<h:outputText value="#{reg.event.name}" />
+					</p:commandLink>
+				</h:form>
+			</p:column>
+			
+			<p:column headerText="Date de l'évènement">
+				<h:outputText value="#{reg.event.eventStartDate}" />
+			</p:column>
+
+		</p:dataTable>
+
+	</div>
+</h:body>
+
+</html>

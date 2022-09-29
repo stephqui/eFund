@@ -1,0 +1,86 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+
+<h:body>
+
+	<div
+		class="navbar navbar-expand-sm navbar-light bg-white fixed-top justify-content-center">
+
+		<div class="container-fluid">
+			<h:link styleClass="navbar-brand" outcome="index.xhtml">
+				<img src="#{request.contextPath}/img/logo-line-trans.png"
+					style="width: 115px;"></img>
+			</h:link>
+			<button class="navbar-toggler" type="button"
+				data-bs-toggle="collapse" data-bs-target="#mynavbar">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="mynavbar">
+				<ul class="navbar-nav mx-auto">
+					<li class="nav-item"><a class="nav-link"
+						href="orgaListe.xhtml">Association/ONG</a></li>
+					<li class="nav-item"><a class="nav-link"
+						href="projectsList.xhtml">Projets</a></li>
+					<li class="nav-item"><a class="nav-link"
+						href="eventList.xhtml">Evènements</a></li>
+				</ul>
+				<c:if test="#{loginBean.isLogged()}">
+					<c:if test="#{loginBean.isUser()}">
+						<a class="navbar-brand" href="cartPage.xhtml"> <img
+							src="/eFund/img/panier-v2.png" alt="Avatar Logo"
+							style="width: 40px;" class="rounded-pill"/>
+						</a>
+					</c:if>
+					<a class="navbar-brand" data-bs-toggle="offcanvas"
+						data-bs-target="#profileOC"> <img
+						src="#{request.contextPath}#{loginBean.sessionUserImagePath}"
+						alt="Avatar Logo" style="width: 40px;" class="rounded-pill" />
+					</a>
+				</c:if>
+
+				<p:commandLink type="button" onclick="PF('loginPopup').show()"
+					rendered="#{!loginBean.isLogged()}">
+					<i class="fa-solid fa-right-to-bracket fa-2xl" />
+				</p:commandLink>
+			</div>
+		</div>
+	</div>
+
+
+	<ui:include src="/WEB-INF/subpage/loginPopup.xhtml"/>
+
+
+	<div class="offcanvas offcanvas-end rounded-bottom"
+		style="max-height: 250px; max-width: 250px" id="profileOC">
+		<div class="offcanvas-header">
+
+			<h3 class="offcanvas-title">#{loginBean.sessionUserName}</h3>
+			<button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
+		</div>
+		<div class="offcanvas-body">
+			<div class="float-start col mt-4">
+				<p:link
+					outcome="#{loginBean.sessionDashBoardURL}&amp;faces-redirect=true">
+					<p>Voir profil</p>
+				</p:link>
+				<h:form>
+					<p:commandLink action="#{loginBean.disconnectSession()}">
+						<p>Déconnexion</p>
+					</p:commandLink>
+				</h:form>
+			</div>
+			<div class="col">
+				<img class="rounded-circle float-end"
+					style="width: 80px; height: 80px"
+					src="#{request.contextPath}#{loginBean.sessionUserImagePath}" />
+			</div>
+		</div>
+	</div>
+</h:body>
+</html>

@@ -1,0 +1,30 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.proj/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:p="http://primefaces.org/ui">
+
+
+<h:body>
+
+	<div class="card">
+		<p:dataTable var="order" value="#{userProfilBean.basketOrders}" allowUnsorting="true"
+			sortMode="single">
+			<p:column headerText="Détail de la commande">
+				<p:linkButton icon="pi pi-list"
+					styleClass="ui-button-outlined ui-button-secondary rounded-pill"
+					value="Détail de la commande" outcome="orderSummary?id=#{order.id}&amp;faces-redirect=true" />
+			</p:column>
+			<p:column sortBy="#{order.date}" headerText="Date de la commande" width="300">
+				<h:outputText value="#{order.date}" />
+			</p:column>
+			<p:column sortBy="#{order.totalPrice}" headerText="Montant de la commande" width="300">
+				<h:outputText value="#{order.totalPrice}" />
+			</p:column>
+		</p:dataTable>
+	</div>
+</h:body>
+
+</html>

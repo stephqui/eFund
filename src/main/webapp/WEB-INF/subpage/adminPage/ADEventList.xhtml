@@ -1,0 +1,63 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.proj/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:p="http://primefaces.org/ui">
+
+
+<h:body>
+
+	<div class="card">
+		<h:form id="eventForm" styleClass="shadow">
+
+			<p:growl id="messagesEvent" showDetail="true" />
+			<p:dataTable var="event" value="#{adminDashboardBean.events}"
+				id="dt-events" reflow="true" editable="true" editMode="cell"
+				editInitEvent="dblclick" rowKey="#{event.id}" paginator="true"
+				rows="7" paginatorPosition="bottom" widgetVar="dtEvents">
+
+				<f:attribute name="eventAttr" value="#{event}" />
+				<p:ajax event="cellEdit"
+					listener="#{adminDashboardBean.onEventCellEdit}"
+					update="@form:messagesEvent" />
+
+				<p:column headerText="Id">
+					<h:outputText value="#{event.id}" />
+				</p:column>
+				<p:column headerText="Image">
+					<p:graphicImage value="#{event.imagePath}" />
+				</p:column>
+
+				<p:column headerText="Nom">
+					<p:link outcome="eventPage?faces-redirect=true&amp;id=#{event.id}">
+						<h:outputText value="#{event.name}" />
+					</p:link>
+				</p:column>
+
+				<p:column headerText="Date de l'évènement">
+					<h:outputText value="#{event.eventStartDate}" />
+				</p:column>
+
+				<p:column headerText="Statut">
+					<p:cellEditor>
+						<f:facet name="output">
+							<h:outputText value="#{event.projectStatus}" />
+						</f:facet>
+						<f:facet name="input">
+							<h:selectOneMenu value="#{event.projectStatus}"
+								style="width:100%">
+								<f:selectItems value="#{adminDashboardBean.projectStatus}"
+									var="status" itemLabel="#{status.name()}" itemValue="#{status}" />
+							</h:selectOneMenu>
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+			</p:dataTable>
+
+		</h:form>
+	</div>
+</h:body>
+
+</html>

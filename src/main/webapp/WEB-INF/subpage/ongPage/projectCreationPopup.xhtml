@@ -1,0 +1,143 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:body>
+	<h:form id="projectCreationForm">
+		<p:dialog widgetVar="projectCreationPop" modal="true">
+			<f:facet name="header">
+				<h1>Création de projet</h1>
+			</f:facet>
+
+			<div class="container-fluid shadow p-5"
+				style="width: 60vw; height: 60vh">
+
+				<div class="ui-fluid row">
+					<div class="col-12 col-md-1 mt-3"></div>
+					<div class="col-12 col-md-5 mt-3">
+						<div class="ui-inputgroup ">
+							<div class="ui-inputgroup-addon">
+								<i class="fa-solid fa-align-justify"></i>
+							</div>
+							<p:inputText placeholder="Nom"
+								value="#{projectCreationBean.projectCreationFormVM.name}"
+								id="NameInput" />
+						</div>
+					</div>
+
+				</div>
+
+				<div class="ui-fluid row">
+					<div class="col-12 col-md-1 mt-3"></div>
+					<div class="col-12 col-md-5 mt-3">
+						<div class="ui-inputgroup">
+							<div class="ui-inputgroup-addon">
+								<i class="pi pi-map"></i>
+							</div>
+							<p:inputText placeholder="Localisation"
+								value="#{projectCreationBean.projectCreationFormVM.location}"
+								id="LocalisationInput" />
+						</div>
+					</div>
+					<div class="col-12 col-md-5 mt-3">
+						<div class="ui-inputgroup">
+							<div class="ui-inputgroup-addon">
+								<i class="pi pi-calendar"></i>
+							</div>
+							<p:datePicker
+								placeholder="Date de fin de collecte pour ce projet"
+								value="#{projectCreationBean.projectCreationFormVM.endDate}" />
+						</div>
+					</div>
+				</div>
+
+				<div class="ui-fluid row">
+					<div class="col-12 col-md-1 mt-3"></div>
+					<div class="col-12 col-md-5 mt-3">
+						<div class="row">
+							<div class="col-12 col-md-6">
+								<p:selectOneMenu
+									value="#{projectCreationBean.projectCreationFormVM.projectCategory}">
+									<f:selectItem itemLabel="Catégorie" itemValue="" />
+									<f:selectItems
+										value="#{projectCreationBean.projectCreationFormVM.projectCategories}"
+										var="category" itemValue="#{category}"
+										itemLabel="#{category.projectCategoryLabel}" />
+								</p:selectOneMenu>
+							</div>
+							<div class="col-12 col-md-6">
+								<p:selectOneMenu
+									value="#{projectCreationBean.projectCreationFormVM.projectRange}">
+									<f:selectItem itemLabel="Sélection" itemValue="" />
+									<f:selectItems
+										value="#{projectCreationBean.projectCreationFormVM.projectRanges}"
+										var="range" itemValue="#{range}"
+										itemLabel="#{range.projectRangeLabel}" />
+
+								</p:selectOneMenu>
+							</div>
+						</div>
+					</div>
+
+
+
+					<div class="col-12 col-md-5 mt-3">
+						<div class="ui-inputgroup">
+							<div class="ui-inputgroup-addon">
+								<i class="fa-solid fa-euro-sign"></i>
+							</div>
+							<p:spinner placeholder="Montant à atteindre" min="1"
+								upButtonStyleClass="ui-button-secondary"
+								downButtonStyleClass="ui-button-secondary"
+								value="#{projectCreationBean.projectCreationFormVM.targetAmount}"
+								id="TargetAmountInput" thousandSeparator=""/>
+						</div>
+					</div>
+				</div>
+
+
+				<div class="ui-fluid row">
+					<div class="col-12 col-md-1 mt-3"></div>
+					<div class="col-12 col-md-10 mt-3">
+						<p:inputTextarea placeholder="Résumé du projet"
+							value="#{projectCreationBean.projectCreationFormVM.summary}"
+							id="SummaryInput" />
+					</div>
+				</div>
+
+				<div class="ui-fluid row">
+					<div class="col-12 col-md-1 mt-3"></div>
+					<div class="col-12 col-md-10 mt-3">
+						<p:fileUpload skinSimple="true"
+							uploadButtonStyleClass="ui-button-outlined ui-button-secondary"
+							chooseButtonStyleClass="ui-button-outlined ui-button-secondary"
+							cancelButtonStyleClass="ui-button-outlined ui-button-secondary"
+							label="Choisissez une image" mode="advanced" sizeLimit="5000000"
+							fileLimit="1" accept=".gif,.jpg,.jpeg,.png"
+							invalidSizeMessage="L'image ne doit pas dépasser 5 Mo"
+							listener="#{projectCreationBean.uploadFile}" />
+
+					</div>
+
+				</div>
+
+			</div>
+
+			<f:facet name="footer">
+				<div class="col-12 d-grid">
+					<p:commandButton
+						styleClass="ui-button-outlined ui-button-secondary rounded-pill"
+						action="#{projectCreationBean.createProject(organizationSpaceBean.orgAccount.organizationSpace.id)}"
+						oncomplete="PF('projectCreationPop').hide()" value="Valider"
+						validateClient="true" />
+				</div>
+			</f:facet>
+
+		</p:dialog>
+	</h:form>
+</h:body>
+</html>

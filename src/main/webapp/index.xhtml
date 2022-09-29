@@ -1,0 +1,167 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:p="http://primefaces.org/ui">
+
+<f:metadata>
+	<f:event listener="#{indexBean.onLoad}" type="preRenderView"></f:event>
+</f:metadata>
+
+<h:body>
+
+	<ui:composition template="/WEB-INF/template/layout.xhtml">
+
+		<ui:define name="css">
+			<link rel="stylesheet" href="css/index.css" />
+		</ui:define>
+
+		<ui:define name="content">
+
+				<div class="container shadow p-0 mt-5">
+					<img src="#{request.contextPath}/img/Banner.png" class="img-fluid"/>
+				</div>
+
+
+
+
+
+			<div class="ui-fuild row text-center  my-5"></div>
+
+			<div class="container shadow py-3 px-5 mt-5">
+
+				<div class="ui-fluid row pb-3">
+					<div class="col-12 col-md-4 mt-3">
+						<h1 class="text-center">#{indexBean.statsVM.nbProjects}</h1>
+						<h5 class="text-center">Nombre de projets</h5>
+					</div>
+					<div class="col-12 col-md-4 mt-3">
+						<h1 class="text-center">#{indexBean.statsVM.totalDonations} €</h1>
+						<h5 class="text-center">Montant total récolté</h5>
+					</div>
+					<div class="col-12 col-md-4 mt-3">
+						<h1 class="text-center">#{indexBean.statsVM.averageDonations}
+							€</h1>
+						<h5 class="text-center">Montant total récolté moyen</h5>
+					</div>
+				</div>
+
+			</div>
+
+			<div class="container shadow py-3 px-5 my-5">
+
+				<div class="ui-fuild row">
+					<h1 class="text-center">Nos projets récents</h1>
+				</div>
+
+				<div class="ui-fluid row">
+					<div class="col-12 col-md-12 mt-3">
+
+						<div class="card pb-3" style="border:0px !important">
+							<p:contentFlow value="#{indexBean.projects}" var="project">
+								<p:graphicImage styleClass="content rounded-3 shadow"
+									value="#{project.imagePath}" />
+								<div class="caption text-dark w-25 mx-auto">
+									#{project.name} - #{project.summary}</div>
+
+							</p:contentFlow>
+						</div>
+
+					</div>
+				</div>
+			</div>
+
+			<hr />
+
+			<div class="container shadow py-3 px-5 mt-5">
+
+				<div class="ui-fluid row">
+					<div class="col-12 col-md-4 mt-3">
+						<h1 class="text-center">#{indexBean.statsVM.nbEvents}</h1>
+						<h5 class="text-center">Nombre d'évènements</h5>
+					</div>
+					<div class="col-12 col-md-4 mt-3">
+						<h1 class="text-center">#{indexBean.statsVM.nbVolunteers}</h1>
+						<h5 class="text-center">Nombre de volontaires</h5>
+					</div>
+					<div class="col-12 col-md-4 mt-3">
+						<h1 class="text-center">#{indexBean.statsVM.averageVolunteers}</h1>
+						<h5 class="text-center">Nombre de volontaires moyen</h5>
+					</div>
+				</div>
+
+			</div>
+
+			<div class="container shadow py-3 px-5 my-5">
+
+				<div class="ui-fuild row">
+					<h1 class="text-center">Nos évènements en cours</h1>
+				</div>
+
+				<div class="ui-fluid row">
+					<div class="col-12 col-md-12 mt-3">
+
+						<div class="card pb-3" style="border:0px !important">
+							<p:contentFlow value="#{indexBean.events}" var="event">
+								<p:graphicImage styleClass="content rounded-3 shadow"
+									value="#{event.imagePath}" />
+								<div class="caption text-dark w-25 mx-auto">#{event.name}
+									- #{event.summary}</div>
+							</p:contentFlow>
+						</div>
+
+					</div>
+				</div>
+
+			</div>
+
+			<hr />
+
+			<div class="container shadow py-3 px-5 mt-5">
+
+				<div class="ui-fluid row">
+					<div class="col-12 col-md-4 mt-3">
+						<h1 class="text-center">#{indexBean.statsVM.nbOrganizations}</h1>
+						<h5 class="text-center">Nombre d'associations</h5>
+					</div>
+					<div class="col-12 col-md-4 mt-3">
+						<h1 class="text-center">#{indexBean.statsVM.soldProducts}</h1>
+						<h5 class="text-center">Nombre de produits vendus</h5>
+					</div>
+					<div class="col-12 col-md-4 mt-3">
+						<h1 class="text-center">#{indexBean.statsVM.averageGenericProjects}</h1>
+						<h5 class="text-center">Nombre de produits vendus moyen</h5>
+					</div>
+				</div>
+
+			</div>
+
+			<div class="container shadow py-3 px-5 my-5">
+
+				<div class="ui-fuild row">
+					<h1 class="text-center">Nos associations récemment inscrites</h1>
+				</div>
+
+				<div class="ui-fluid row">
+					<div class="col-12 col-md-12 mt-3">
+
+						<div class="card pb-3" style="border:0px !important">
+							<p:contentFlow value="#{indexBean.orgs}" var="org">
+								<p:graphicImage styleClass="content rounded-3 shadow"
+									value="#{org.imagePath}" />
+								<div class="caption text-dark w-25 mx-auto">
+									#{org.organizationInfo.name}</div>
+							</p:contentFlow>
+						</div>
+					</div>
+				</div>
+			</div>
+		</ui:define>
+	</ui:composition>
+</h:body>
+</html>
+
+
+

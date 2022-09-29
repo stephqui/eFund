@@ -1,0 +1,460 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+<f:metadata>
+	<f:viewParam name="id" />
+	<f:viewParam name="itemId" />
+	<f:viewParam name="userId" />
+	<f:event listener="#{organizationSpaceBean.onLoad(id)}"
+		type="preRenderView"></f:event>
+	<f:event listener="#{shopBean.onLoad(itemId)}" type="preRenderView" />
+</f:metadata>
+
+<h:body>
+
+	<ui:composition template="/WEB-INF/template/layout.xhtml">
+		<ui:define name="css">
+			<link rel="stylesheet" href="css/ongPage.css" />
+		</ui:define>
+		<ui:define name="content">
+
+			<div class="container-fluid p-5" id="ongPageBody">
+				<div class="row">
+					<div class="col-12 col-md-5 mb-3">
+						<img class="img-fluid" id="imgOng"
+							src="#{request.contextPath}#{organizationSpaceBean.orgAccount.organizationSpace.imagePath}" />
+					</div>
+					<div class="col-12 col-md-7 my-auto">
+						<!-- PROJECT OWNER SEULEMENT : icone AwesomeFont Configuration -->
+						<h1>
+							#{organizationSpaceBean.orgAccount.organizationInfo.name} <img
+								class="img-fluid" id="logoOng"
+								src="#{request.contextPath}#{organizationSpaceBean.orgAccount.imagePath}" />
+							<p:commandLink type="button" onclick="PF('orgConfigPop').show()"
+								rendered="#{organizationSpaceBean.isOwner}">
+								<i class="fa-solid fa-gear" />
+							</p:commandLink>
+						</h1>
+
+						<hr />
+
+						<p>#{organizationSpaceBean.orgAccount.organizationInfo.description}</p>
+					</div>
+				</div>
+
+				<p:tabView styleClass="rounded">
+
+					<p:tab title="Présentation"
+						rendered="#{organizationSpaceBean.orgAccount.organizationSpace.mainTab}">
+
+						<p:commandButton icon="fa-solid fa-align-justify"
+							styleClass="rounded-button ui-button-primary ui-button-outlined m-1"
+							title="Ajouter un bloc de texte" type="button"
+							onclick="PF('addTxtBlockPop').show()"
+							rendered="#{organizationSpaceBean.isOwner}" />
+
+						<p:commandButton icon="fa-solid fa-image"
+							styleClass="rounded-button ui-button-primary ui-button-outlined m-1"
+							title="Ajouter une image" type="button"
+							onclick="PF('addImgBlockPop').show()"
+							rendered="#{organizationSpaceBean.isOwner}" />
+
+						<p:commandButton icon="fa-solid fa-film"
+							styleClass="rounded-button ui-button-primary ui-button-outlined m-1"
+							title="Ajouter une video" type="button"
+							onclick="PF('addVidBlockPop').show()"
+							rendered="#{organizationSpaceBean.isOwner}" />
+
+						<div class="container mx-auto text-center">
+							<h2 class="text-center">Présentation</h2>
+							<hr />
+							<p:repeat var="block" value="#{organizationSpaceBean.blocks}">
+
+								<h:form>
+									<p:commandButton icon="fa-solid fa-minus"
+										styleClass="rounded-button ui-button-secondary ui-button-outlined m-3"
+										title="Supprimer le bloc"
+										action="#{organizationSpaceBean.removeBlock(block.id)}"
+										ajax="false" rendered="#{organizationSpaceBean.isOwner}" />
+								</h:form>
+								<p:outputLabel
+									rendered="#{organizationSpaceBean.isOfType(block.type, 'txt')}"
+									style="font-size: 25px !important">#{block.content}</p:outputLabel>
+								<p:graphicImage
+									rendered="#{organizationSpaceBean.isOfType(block.type, 'img')}"
+									class="img-fluid rounded img-thumbnail shadow"
+									style="max-width: 60% !important" value="#{block.content}" />
+								<p:video
+									rendered="#{organizationSpaceBean.isOfType(block.type, 'vid')}"
+									value="#{block.content}" player="mp4" controls="true"
+									width="600" onplay="console.log('MP4 Started Playing')"
+									onpause="console.log('MP4 Stopped Playing')">
+												Your browser does not support the video element. See: 
+												<h:outputLink
+										value="https://www.w3schools.com/html/html5_video.asp">HTML5 Video</h:outputLink>
+								</p:video>
+								<hr />
+							</p:repeat>
+						</div>
+					</p:tab>
+
+
+					<!-- Onglet Boutique -->
+
+					<p:tab rendered="#{organizationSpaceBean.orgAccount.organizationSpace.shopTab}" id="shopTab">
+						<f:facet name="title">
+							<i class="fa-solid fa-basket-shopping" /> Boutique
+						</f:facet>
+
+						<!-- ** PROJECT OWNER SEULEMENT : Ajout de nouveaux Produit dans la boutique -->
+						<p:commandButton icon="fa-solid fa-plus"
+							styleClass="rounded-button ui-button-primary ui-button-outlined m-1"
+							title="Nouveau produit" type="button"
+							onclick="PF('itemCreationPop').show()"
+							rendered="#{organizationSpaceBean.isOwner}" />
+							
+
+						<h2 class="text-center">Boutique</h2>
+						<hr />
+
+						
+						<div class="row">
+
+							<p:repeat var="item" value="#{organizationSpaceBean.items}">
+								<div class="flip-card m-auto mb-4">
+									<div class="flip-card-inner">
+										<div class="flip-card-front">
+											<div class="col-12 col-md-12">
+												<p:card styleClass="shadow">
+													<f:facet name="header">
+														<img src="#{request.contextPath}#{item.imagePath}"
+															style="height: 150%" />
+													</f:facet>
+													<f:facet name="title">
+														<div class="clearfix">#{item.label}</div>
+													</f:facet>
+													<f:facet name="subtitle">
+											#{item.itemCategory.label}
+										</f:facet>
+													<f:facet name="footer">
+														<div class="m-3 clearfix">
+															<div class="float-start">Prix : #{item.price}€</div>
+															<div class="float-end">#{item.itemStatus.itemStatusLabel}</div>
+														</div>
+													</f:facet>
+												</p:card>
+											</div>
+
+
+										</div>
+										<div class="flip-card-back px-4">
+											<div class="row text-end">
+												<h:form id="delItem"
+													rendered="#{organizationSpaceBean.isOwner}">
+													<h:inputHidden name="id" value="#{id}" />
+													<h:commandLink
+														action="#{organizationSpaceBean.deleteItem(item.id)}"
+														id="delete-item-#{item.id}" >
+														<i class="fa-solid fa-circle-minus fa-lg text-danger" />
+													</h:commandLink>
+												</h:form>
+
+											</div>
+											<div class="row">
+												<h4>#{item.description}</h4>
+											</div>
+											<div class="row mx-auto">
+												<p:linkButton icon="fa-solid fa-cart-plus"
+													value="Ajouter au panier" styleClass="ui-button-outlined"
+													outcome="pageOng?id=#{id}&#38;itemId=#{item.id}faces-redirect=true"
+													action="#{shopBean.createOrderLine(item.id)}" />
+											</div>
+											&#13;
+
+										</div>
+									</div>
+								</div>
+							</p:repeat>
+
+						</div>
+					</p:tab>
+
+					<!-- Onglet Projets -->
+
+					<p:tab title="Nos projets"
+						rendered="#{organizationSpaceBean.orgAccount.organizationSpace.projectsTab}">
+						<!-- ** PROJECT OWNER SEULEMENT : Ajout de nouveaux Projets -->
+						<p:commandButton icon="fa-solid fa-plus"
+							styleClass="rounded-button ui-button-primary ui-button-outlined m-1"
+							title="Nouveau projet" type="button"
+							onclick="PF('projectCreationPop').show()"
+							rendered="#{organizationSpaceBean.isOwner}" />
+							
+						<h2 class="text-center">Nos projets</h2>
+						<hr />
+						<div class="row">
+							<p:repeat var="project" value="#{organizationSpaceBean.projects}">
+								<div
+									class="col-12 col-lg-6 col-xl-4 col-xxl-3 my-3 d-flex align-items-stretch">
+									<h:link
+										outcome="pageProject.xhtml?id=#{project.id}faces-redirect=true">
+										<p:card style="margin-right: 30px; height: 100%"
+											styleClass="shadow">
+											<f:facet name="header">
+												<img src="#{request.contextPath}#{project.imagePath}"
+													class="ratio"
+													style="object-fit: cover; height: 20% !important" />
+											</f:facet>
+											<f:facet name="title">
+												<div class="clearfix">
+													#{project.name}
+													<div class="float-end">
+														<!-- ONLY IF PROJECT.STATUS == DRAFT -->
+														<h:form id="delProject"
+															rendered="#{organizationSpaceBean.isOwner}">
+															<h:inputHidden name="id" value="#{id}" />
+															<h:commandLink
+																action="#{organizationSpaceBean.deleteProject(project.id)}"
+																id="delete-project-#{project.id}">
+																<i class="fa-solid fa-circle-minus fa-lg text-danger" />
+															</h:commandLink>
+														</h:form>
+													</div>
+												</div>
+											</f:facet>
+											<f:facet name="subtitle">
+												<p>#{project.projectCategory.projectCategoryLabel}</p>
+												<p>#{project.summary}</p>
+											</f:facet>
+											<f:facet name="footer">
+												<div>
+													<i class="fa-solid fa-location-dot"></i>
+													#{project.location}
+												</div>
+												<div class="progress">
+													<div
+														class="progress-bar progress-bar-striped progress-bar-animated"
+														style="width:#{projectsListBean.percentage(project.currentAmount, project.targetAmount)}%">
+														#{projectsListBean.percentage(project.currentAmount,
+														project.targetAmount)}%</div>
+												</div>
+												<div
+													class="d-flex justify-content-between align-items-bottom pb-2">
+
+													<p>#{project.currentAmount.intValue()} € sur
+														#{project.targetAmount.intValue()} €</p>
+													<p>J -
+														#{projectsListBean.calculRemainingDays(project.endDate)}</p>
+												</div>
+											</f:facet>
+										</p:card>
+									</h:link>
+								</div>
+							</p:repeat>
+						</div>
+					</p:tab>
+
+					<!-- Onglet Evènements -->
+					<p:tab title="Nos évènements"
+						rendered="#{organizationSpaceBean.orgAccount.organizationSpace.eventsTab}">
+
+						<!-- ** PROJECT OWNER SEULEMENT : Ajout de nouveaux Projets -->
+						<p:commandButton icon="fa-solid fa-plus"
+							styleClass="rounded-button ui-button-primary ui-button-outlined m-1"
+							title="Nouvel évènement" type="button"
+							onclick="PF('eventCreationPop').show()"
+							rendered="#{organizationSpaceBean.isOwner}" />
+
+						<h2 class="text-center">Nos évènements</h2>
+						<hr />
+						<div class="row">
+							<p:repeat var="event" value="#{organizationSpaceBean.events}">
+								<div class="col-12 col-lg-6 col-xl-4 col-xxl-3 my-3">
+									<h:link
+										outcome="eventPage.xhtml?id=#{event.id}faces-redirect=true">
+										<p:card style="margin-right: 30px; height: 100%"
+											styleClass="shadow">
+											<f:facet name="header">
+												<img src="#{request.contextPath}#{event.imagePath}"
+													class="ratio"
+													style="object-fit: cover; height: 20% !important" />
+											</f:facet>
+											<f:facet name="title">
+											#{event.name}
+											<div class="float-end">
+													<h:form id="delEvent"
+														rendered="#{organizationSpaceBean.isOwner}">
+														<h:inputHidden name="id" value="#{id}" />
+														<!-- ONLY IF EVENT.STATUS == DRAFT -->
+														<h:commandLink
+															action="#{organizationSpaceBean.deleteEvent(event.id)}"
+															id="delete-event-#{event.id}">
+															<i class="fa-solid fa-circle-minus fa-lg text-danger" />
+														</h:commandLink>
+													</h:form>
+												</div>
+											</f:facet>
+											<f:facet name="subtitle">
+											#{event.projectCategory.projectCategoryLabel}
+										</f:facet>
+											<p>#{event.summary}</p>
+											<f:facet name="footer">
+												<div>
+													<i class="fa-solid fa-location-dot"></i> #{event.location}
+												</div>
+												<div
+													class="d-flex justify-content-between align-items-bottom">
+													<h:outputText value="#{event.eventStartDate}">
+														<f:convertDateTime type="date" dateStyle="full" />
+													</h:outputText>
+													<p>#{event.duration} j.</p>
+												</div>
+											</f:facet>
+										</p:card>
+									</h:link>
+								</div>
+							</p:repeat>
+						</div>
+					</p:tab>
+
+					<!-- ONGLETS ACCESSIBLE UNIQUEMENT PAR LE PROPRIETAIRE DE LA PAGE -->
+
+					<p:tab title="Mes informations"
+						rendered="#{organizationSpaceBean.isOwner}">
+						<div class="col-12 col-md-9">
+							<div class="row">
+								<div class="col-12 col-md-2 mb-3">
+									<img class="img-fluid rounded-3 shadow"
+										src="#{request.contextPath}#{organizationSpaceBean.orgAccount.imagePath}" />
+								</div>
+								<div class="col-12 col-md-4">
+									<div class="col-12 col-md-5 my-auto">
+										<h1>
+											<p:linkButton icon="pi pi-cog"
+												styleClass="rounded-button ui-button-secondary ui-button-flat"
+												title="Modifier mes informations" outcome="orgModificationForm" />
+										</h1>
+									</div>
+
+
+
+									<br />
+									<h5>#{organizationSpaceBean.orgAccount.email}</h5>
+									<br />
+									<h5>Siret :
+										#{organizationSpaceBean.orgAccount.organizationInfo.siret}</h5>
+									<br />
+									<h5>Date de création :
+										#{organizationSpaceBean.orgAccount.creationDate}</h5>
+								</div>
+
+							</div>
+							<div class="row">
+								<div class="col-12 col-md-9">
+									#{organizationSpaceBean.orgAccount.organizationInfo.summary}</div>
+								<br />
+								#{organizationSpaceBean.orgAccount.organizationInfo.description}
+
+							</div>
+						</div>
+					</p:tab>
+
+					<p:tab title="Gestion des projets"
+						rendered="#{organizationSpaceBean.isOwner}">
+						<div class="col-9">
+							<h:form>
+								<p:dataTable var="proj"
+									value="#{organizationSpaceBean.projects}" reflow="true"
+									style="width:100% !important">
+
+									<p:column headerText="Nom">
+										<h:outputText value="#{proj.name}" />
+									</p:column>
+									<p:column headerText="Résumé">
+										<h:outputText value="#{proj.summary}" />
+									</p:column>
+									<p:column headerText="Statut">
+										<h:outputText value="#{proj.projectStatus}" />
+									</p:column>
+									<p:column headerText="" style="align:left">
+										<p:commandButton
+											rendered="#{organizationSpaceBean.isDraft(proj.projectStatus)}"
+											icon="fa-solid fa-file-arrow-up"
+											action="#{organizationSpaceBean.submitDraftProject(proj.id)}"
+											value="Soumettre" update="@form"
+											styleClass="ui-button-outlined rounded-pill ui-button-raised ui-button-success" />
+									</p:column>
+									<p:column headerText="">
+										<p:commandButton class="ui-button-danger rounded-button"
+											action="#{organizationSpaceBean.deleteProject(proj.id)}"
+											update="@form"
+											rendered="#{organizationSpaceBean.isDraft(proj.projectStatus)}"
+											icon="pi pi-trash">
+										</p:commandButton>
+									</p:column>
+								</p:dataTable>
+
+							</h:form>
+
+						</div>
+					</p:tab>
+
+					<p:tab title="Gestion de mes évènements"
+						rendered="#{organizationSpaceBean.isOwner}">
+						<div class="col-9">
+							<h:form>
+								<p:dataTable var="event" value="#{organizationSpaceBean.events}"
+									reflow="true" style="width:100% !important">
+
+									<p:column headerText="Nom">
+										<h:outputText value="#{event.name}" />
+									</p:column>
+									<p:column headerText="Résumé">
+										<h:outputText value="#{event.summary}" />
+									</p:column>
+									<p:column headerText="Statut">
+										<h:outputText value="#{event.projectStatus}" />
+									</p:column>
+									<p:column headerText="" style="align:left">
+										<p:commandButton
+											rendered="#{organizationSpaceBean.isDraft(event.projectStatus)}"
+											icon="fa-solid fa-file-arrow-up"
+											action="#{organizationSpaceBean.submitDraftEvent(event.id)}"
+											value="Soumettre" update="@form"
+											styleClass="ui-button-outlined rounded-pill ui-button-raised ui-button-success" />
+									</p:column>
+									<p:column headerText="">
+										<p:commandButton class="ui-button-danger rounded-button"
+											action="#{organizationSpaceBean.deleteEvent(event.id)}"
+											update="@form"
+											rendered="#{organizationSpaceBean.isDraft(event.projectStatus)}"
+											icon="pi pi-trash">
+										</p:commandButton>
+									</p:column>
+								</p:dataTable>
+
+							</h:form>
+
+						</div>
+					</p:tab>
+
+				</p:tabView>
+			</div>
+
+			<ui:include src="WEB-INF/subpage/ongPage/txtBlockPopup.xhtml" />
+			<ui:include src="WEB-INF/subpage/ongPage/imgBlockPopup.xhtml" />
+			<ui:include src="WEB-INF/subpage/ongPage/vidBlockPopup.xhtml" />
+			<ui:include src="WEB-INF/subpage/ongPage/orgSpaceConfig.xhtml" />
+			<ui:include src="WEB-INF/subpage/ongPage/itemCreationPopup.xhtml" />
+			<ui:include src="WEB-INF/subpage/ongPage/projectCreationPopup.xhtml" />
+			<ui:include src="WEB-INF/subpage/ongPage/eventCreationPopup.xhtml" />
+		</ui:define>
+	</ui:composition>
+</h:body>
+</html>

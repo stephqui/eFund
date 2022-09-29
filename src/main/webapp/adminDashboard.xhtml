@@ -1,0 +1,120 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:p="http://primefaces.org/ui">
+
+<f:metadata>
+	<f:event listener="#{adminDashboardBean.onLoad}" type="preRenderView"></f:event>
+</f:metadata>
+
+<h:body>
+
+	<ui:composition template="/WEB-INF/template/layout.xhtml">
+		<ui:define name="css">
+			<link rel="stylesheet" href="css/admin.css" />
+		</ui:define>
+		<ui:define name="content">
+
+			<div class="dashboard-container">
+				<p:tabView orientation="left">
+
+					<p:tab title="Dashboard" disabled="true">
+						<f:facet name="title">
+							<i class="fa-solid fa-gauge"></i> Dashboard
+						</f:facet>
+						<div class="container shadow p-5 mt-5 text-center">
+							<h1>Administrateur</h1>
+						</div>
+					</p:tab>
+
+					<p:tab title="Utilisateurs">
+						<f:facet name="title">
+							<i class="fa-solid fa-user"></i> Utilisateurs
+						</f:facet>
+						<div class="container-fluid shadow p-5 mt-5 mx-auto">
+							<h1>Liste utilisateurs</h1>
+							<ui:include src="WEB-INF/subpage/adminPage/ADUserList.xhtml" />
+						</div>
+					</p:tab>
+
+					<p:tab title="Associations/ONGs">
+						<f:facet name="title">
+							<i class="fa-solid fa-building"></i> Associations/ONGs
+						</f:facet>
+						<div class="container shadow p-5 mt-5">
+							<h1>Liste associations</h1>
+							<ui:include src="WEB-INF/subpage/adminPage/ADOrgList.xhtml" />
+						</div>
+					</p:tab>
+
+					<p:tab title="Projets">
+						<f:facet name="title">
+							<i class="fa-solid fa-hand-holding-hand"></i> Projets
+						</f:facet>
+						<div class="container shadow p-5 mt-5">
+							<h1>Liste projets</h1>
+							<ui:include src="WEB-INF/subpage/adminPage/ADProjectList.xhtml" />
+						</div>
+					</p:tab>
+
+					<p:tab title="Evènements">
+						<f:facet name="title">
+							<i class="fa-solid fa-hand-holding-hand"></i> Evènements
+						</f:facet>
+						<div class="container shadow p-5 mt-5">
+							<h1>Liste évènements</h1>
+							<ui:include src="WEB-INF/subpage/adminPage/ADEventList.xhtml" />
+						</div>
+					</p:tab>
+
+
+					<p:tab title="Modération">
+						<f:facet name="title">
+							<i class="fa-solid fa-gavel"></i> Modération
+						</f:facet>
+						<div class="container shadow p-5 mt-5">
+							<h1 style="display:inline">Liste modération </h1>
+							<i class="fa-solid fa-person-digging" style="color:#426CB4"></i>
+							<h2 style="display:inline"> En construction </h2>
+							<i class="fa-solid fa-person-digging" style="color:#426CB4"></i>
+						</div>
+					</p:tab>
+
+					<p:tab title="Statistiques">
+						<f:facet name="title">
+							<i class="fa-solid fa-chart-line"></i> Statistiques
+						</f:facet>
+						<div class="container shadow p-5 mt-5">
+							<h1 style="display:inline">Différentes statistiques </h1>
+							<i class="fa-solid fa-person-digging" style="color:#426CB4"></i>
+							<h2 style="display:inline"> En construction </h2>
+							<i class="fa-solid fa-person-digging" style="color:#426CB4"></i>
+						</div>
+					</p:tab>
+
+					<p:tab title="Newsletter">
+						<f:facet name="title">
+							<i class="fa-regular fa-envelope"></i> Newletter
+						</f:facet>
+						<div class="container shadow p-5 mt-5">
+							<h1 style="display:inline">Gestion newsletter </h1>
+							<i class="fa-solid fa-person-digging" style="color:#426CB4"></i>
+							<h2 style="display:inline"> En construction </h2>
+							<i class="fa-solid fa-person-digging" style="color:#426CB4"></i>
+							
+						</div>
+					</p:tab>
+
+				</p:tabView>
+
+			</div>
+
+			<ui:include src="WEB-INF/subpage/adminPage/mailFormPop.xhtml" />
+		</ui:define>
+
+	</ui:composition>
+</h:body>
+</html>

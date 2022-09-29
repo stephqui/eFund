@@ -1,0 +1,76 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:body>
+
+	<ui:composition template="/WEB-INF/template/layout.xhtml">
+
+		<ui:define name="css">
+			<link rel="stylesheet" href="css/creation.css" />
+		</ui:define>
+
+		<ui:define name="content">
+
+			<div class="container shadow p-5 my-5">
+				<h1>Configuration de l'espace Association</h1>
+				<hr />
+				<h:form id="EventCreationForm">
+
+					<div class="ui-fluid row">
+						<div class="col-12 offset-1 col-md-10 my-3">
+							<p:inputTextarea placeholder="Changez le résumé de l'association"
+								value="#{organizationSpaceBean.orgAccount.organizationInfo.description}" id="SummaryInput" />
+						</div>
+					</div>
+
+					<div class="ui-fluid row">
+						<div class="col-12 offset-1 col-md-10 my-3">
+							<p:fileUpload skinSimple="true"
+								uploadButtonStyleClass="ui-button-outlined ui-button-secondary"
+								chooseButtonStyleClass="ui-button-outlined ui-button-secondary"
+								cancelButtonStyleClass="ui-button-outlined ui-button-secondary"
+								label="Changez l'image de l'association" mode="advanced"
+								sizeLimit="5000000" fileLimit="1" accept=".gif,.jpg,.jpeg,.png"
+								invalidSizeMessage="L'image ne doit pas dépasser 5 Mo"
+								listener="#{organizationSpaceBean.uploadFileForSpace}" />
+						</div>
+					</div>
+
+					<div class="ui-fluid row mb-5">
+						<div class="col-12 offset-1 col-md-10 mt-3">
+							<h4>Activez/désactivez les onglets:</h4>
+							<p:selectBooleanCheckbox itemLabel="Présentation" value="#{organizationSpaceBean.orgAccount.organizationSpace.mainTab}"/>
+							<p:selectBooleanCheckbox itemLabel="Boutique" value="#{organizationSpaceBean.orgAccount.organizationSpace.shopTab}"/>
+							<p:selectBooleanCheckbox itemLabel="Projets" value="#{organizationSpaceBean.orgAccount.organizationSpace.projectsTab}"/>
+							<p:selectBooleanCheckbox itemLabel="Evènements" value="#{organizationSpaceBean.orgAccount.organizationSpace.eventsTab}"/>
+						</div>
+					</div>
+
+
+
+					<div class="ui-fuild row">
+						<div class="col-12 col-md-1 mt-3"></div>
+						<div class="col-12 col-md-5 mt-4 d-grid">
+							<p:commandButton styleClass="ui-button-outlined rounded-pill"
+								action="#" value="Annuler" />
+						</div>
+						<div class="col-12 col-md-5 mt-4 d-grid">
+							<p:commandButton styleClass="ui-button-outlined rounded-pill"
+								action="#" value="Valider" />
+						</div>
+
+					</div>
+				</h:form>
+			</div>
+		</ui:define>
+
+
+
+	</ui:composition>
+</h:body>
+</html>

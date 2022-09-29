@@ -1,0 +1,101 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:body>
+
+	<ui:composition template="/WEB-INF/template/layout.xhtml">
+	
+	<ui:define name="css">
+			<link rel="stylesheet" href="css/creation.css" />
+		</ui:define>
+
+		<ui:define name="content">
+			<div class="container shadow p-5 my-5">
+				<h1>Création de votre compte utilisateur</h1>
+				<hr/>
+				<h:form id="createAccountForm">
+
+					<div class="ui-fluid row">
+						<div class="col-12 col-md-1 mt-3"></div>
+						<div class="col-12 col-md-10 mt-3">
+							<p:steps activeIndex="0">
+								<p:menuitem value="Création du compte" />
+								<p:menuitem value="Enregistrement des informations" />
+							</p:steps>
+						</div>
+					</div>
+					
+					<br/>
+					
+					<div class="ui-fluid row">
+
+						<div class="col-12 col-md-3 mt-3"></div>
+						<div class="col-12 col-md-6 mt-3">
+							<div class="ui-inputgroup ">
+								<div class="ui-inputgroup-addon">
+									<i class="fa-solid fa-at"></i>
+								</div>
+								<p:inputText placeholder="Email"
+									value="#{createUserBean.createUser.email}" id="emailInput"  required="true"/>
+							</div>
+						</div>
+
+					</div>
+
+					<div class="ui-fluid row">
+
+						<div class="col-12 col-md-3 mt-3"></div>
+						<div class="col-12 col-md-6 mt-3">
+							<div class="ui-inputgroup ">
+								<div class="ui-inputgroup-addon">
+									<i class="fa-solid fa-key"></i>
+								</div>
+								<p:inputText placeholder="Mot de passe" type="password"
+									value="#{createUserBean.createUser.password}"
+									id="passwordInput"  required="true"/>
+							</div>
+						</div>
+					</div>
+
+					<div class="ui-fluid row">
+
+						<div class="col-12 col-md-3 mt-3"></div>
+						<div class="col-12 col-md-6 mt-3">
+							<div class="ui-inputgroup ">
+								<div class="ui-inputgroup-addon">
+									<i class="fa-solid fa-user"></i>
+								</div>
+								<p:inputText placeholder="Nom d'utilisateur"
+									value="#{createUserBean.createUser.displayedName}"
+									id="displayedNameInput" required="true"/>
+							</div>
+							<p:link outcome="orgCreationForm.xhtml">Vous représentez une association ?</p:link>
+						</div>
+					</div>
+					
+					<div class="row">
+						<div class="col-12 col-md-3 mt-3"></div>
+						<div class="col-12 col-md-3 mt-4 d-grid">
+							<p:commandButton
+								styleClass="ui-button-outlined rounded-pill"
+								type="reset" value="Annuler" />
+						</div>
+						<div class="col-12 col-md-3 mt-4 d-grid">
+							<p:commandButton
+								styleClass="ui-button-outlined rounded-pill"
+								action="#{createUserBean.create()}" value="Valider" validateClient="true"/>
+						</div>
+					</div>
+
+				</h:form>
+
+			</div>
+		</ui:define>
+	</ui:composition>
+</h:body>
+</html>

@@ -1,0 +1,278 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:body>
+
+	<ui:composition template="/WEB-INF/template/layout.xhtml">
+
+		<ui:define name="content">
+			<br />
+			<div class="ui-fuild row">
+				<h1 class="text-center">eFUND et la sécurité</h1>
+			</div>
+			<br />
+
+			<div class="container shadow py-3 5px-5 mt-5">
+
+				<h5>La sécurité des cagnottes et de vos données personnelles
+					est notre priorité.</h5>
+			</div>
+
+
+			<br />
+			<div class="container shadow py-3 5px-5 mt-5">
+				<h5 class="text-center">Sécurité des paiments</h5>
+				<div class="accordion" id="accordionExample">
+					<div class="accordion-item">
+						<h2 class="accordion-header" id="headingOne">
+							<button class="accordion-button" type="button"
+								data-bs-toggle="collapse" data-bs-target="#collapseOne"
+								aria-expanded="true" aria-controls="collapseOne">
+								<h5>Le site eFUND est sécurisé, tout le parcours normal du
+									site est chiffré en "https" incluant les pages de paiement</h5>
+							</button>
+						</h2>
+						<div id="collapseOne" class="accordion-collapse collapse show"
+							aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+							<div class="accordion-body">
+								<p>Lorsque vous visitez le site eFUND, un cadenas fermé
+									apparaît dans la barre d'adresse, à gauche de l'adresse du
+									site. Il est éventuellement accompagné par le préfixe https://
+									en fonction de votre navigateur. Ceci prouve qu’un certificat
+									de sécurité valide est en place. Grâce à cela, vous pouvez
+									confirmer que la connexion au site web que vous consultez est
+									chiffrée et, dans certains cas, qui en est propriétaire.</p>
+								<p>Si le cadenas fermé ou le domaine eFUND.com
+									n’apparaissent pas au début de la barre d’adresse, il ne s’agit
+									pas du vrai site eFUND. Un site sans protocole “https” est un
+									site considéré comme “non sécurisé”.</p>
+								<p></p>
+							</div>
+						</div>
+					</div>
+					<div class="accordion-item">
+						<h2 class="accordion-header" id="headingTwo">
+							<button class="accordion-button collapsed" type="button"
+								data-bs-toggle="collapse" data-bs-target="#collapseTwo"
+								aria-expanded="false" aria-controls="collapseTwo">
+								<h5>Rapporter une ou un incident de sécurité</h5>
+							</button>
+						</h2>
+						<div id="collapseTwo" class="accordion-collapse collapse"
+							aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+							<div class="accordion-body">
+								<p>Si, en tant que visiteur du site eFUND, et malgré nos
+									efforts en coulisses, vous détectez spontanément une
+									vulnérabilité ou un incident de sécurité qui aurait échappé à
+									tous nos contrôles, nous vous invitons à en informer nos
+									équipes qui se chargeront d'analyser votre retour et de
+									prioriser les éventuelles corrections nécessaires en fonction
+									des impacts sur la sécurité du service.</p>
+								<p>Vous pouvez nous envoyer toute information utile à
+									alerte-securite@eFUND.com.</p>
+								<p>Nous précisons que nous ne disposons pas, à ce jour, de
+									programme de "Bug Bounty" actif.</p>
+								<p>Ce paragraphe n'est donc pas une autorisation ou une
+									incitation à rechercher activement des vulnérabilités sur le
+									site eFUND ou à tenter de s'introduire dans nos systèmes
+									informatiques, ces travaux étant habituellement confiés à du
+									personnel ou des prestataires dûment mandatés pour cela.</p>
+							</div>
+						</div>
+					</div>
+					<div class="accordion-item">
+						<h2 class="accordion-header" id="headingThree">
+							<button class="accordion-button collapsed" type="button"
+								data-bs-toggle="collapse" data-bs-target="#collapseThree"
+								aria-expanded="false" aria-controls="collapseThree">
+								<h5>Les transactions sont authentifiées grâce au protocole
+									3D-Secure, si nécessaire</h5>
+							</button>
+						</h2>
+						<div id="collapseThree" class="accordion-collapse collapse"
+							aria-labelledby="headingThree" data-bs-parent="#accordionExample">
+							<div class="accordion-body">
+								<p>Cette procédure n'est pas automatique. Elle se déclenche
+									uniquement selon des critères définis par notre service de
+									lutte contre la fraude et votre banque. Si le 3D-Secure ne se
+									lance pas, c’est que votre participation a donc été estimée
+									comme sécurisée.</p>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="accordion-item">
+					<h2 class="accordion-header" id="headingfour">
+						<button class="accordion-button collapsed" type="button"
+							data-bs-toggle="collapse" data-bs-target="#collapseFour"
+							aria-expanded="false" aria-controls="collapseFour">
+							<h5>Une équipe est dédiée à la vérification des transactions</h5>
+						</button>
+					</h2>
+					<div id="collapseFour" class="accordion-collapse collapse"
+						aria-labelledby="headingFour" data-bs-parent="#accordionExample">
+						<div class="accordion-body">
+							<p>Afin de s'assurer de l'authenticité de chaque transaction,
+								nous avons mis en place un outil de détection des fraudes nous
+								permettant de lutter efficacement contre les "transactions non
+								authentifiées". Nous conseillons nos utilisateurs sur les bonnes
+								pratiques comme le 3D-Secure, exigé par certaines banques.</p>
+						</div>
+					</div>
+				</div>
+			</div>
+
+
+
+			<br />
+			<div class="container shadow py-3 5px-5 mt-5">
+				<h5 class="text-center">Sécurité des données</h5>
+				<div class="accordion" id="accordionExample">
+					<div class="accordion-item">
+						<h2 class="accordion-header" id="headingOne">
+							<button class="accordion-button" type="button"
+								data-bs-toggle="collapse" data-bs-target="#collapseOne"
+								aria-expanded="true" aria-controls="collapseOne">
+								<h5>L'accès à votre compte est limité par un identifiant
+									unique et un mot de passe haché de manière irréversible</h5>
+							</button>
+						</h2>
+						<div id="collapseOne" class="accordion-collapse collapse show"
+							aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+							<div class="accordion-body">
+								<p>Votre mot de passe est donc gardé confidentiel et nous
+									n’y avons pas accès.</p>
+								<p>Pour gérer efficacement votre mot de passe, nous vous
+									conseillons de ne l’utiliser que sur le site eFUND, d’utiliser
+									un mot de passe suffisamment long et complexe, impossible à
+									deviner (ne comportant pas de données personnelles), d’utiliser
+									un gestionnaire de mot de passe, de changer votre mot de passe
+									au moindre soupçon et de ne jamais le communiquer à un tiers.</p>
+							</div>
+						</div>
+					</div>
+					<div class="accordion-item">
+						<h2 class="accordion-header" id="headingTwo">
+							<button class="accordion-button collapsed" type="button"
+								data-bs-toggle="collapse" data-bs-target="#collapseTwo"
+								aria-expanded="false" aria-controls="collapseTwo">
+								<h5>eFUND ne dispose à aucun moment de vos informations de
+									carte bancaire en clair</h5>
+							</button>
+						</h2>
+						<div id="collapseTwo" class="accordion-collapse collapse"
+							aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+							<div class="accordion-body">
+								<p>​​eFUND n'étant pas un Prestataire de Service de
+									Paiement, nous ne disposons pas de vos coordonnées bancaires
+									complètes. Aucun prélèvement ne peut donc être effectué de
+									notre part en dehors de vos actions sur les pages de
+									contributions.</p>
+							</div>
+						</div>
+					</div>
+					<div class="accordion-item">
+						<h2 class="accordion-header" id="headingThree">
+							<button class="accordion-button collapsed" type="button"
+								data-bs-toggle="collapse" data-bs-target="#collapseThree"
+								aria-expanded="false" aria-controls="collapseThree">
+								<h5>Vos données personnelles sont sécurisées et ne sont
+									jamais communiquées à un tiers pour une utilisation commerciale</h5>
+							</button>
+						</h2>
+						<div id="collapseThree" class="accordion-collapse collapse"
+							aria-labelledby="headingThree" data-bs-parent="#accordionExample">
+							<div class="accordion-body">
+								<p>Nous sommes légalement tenus de conserver certaines
+									informations (notamment nom, prénom et date de naissance)
+									pendant une durée de 5 ans (L.561-12 du code monétaire et
+									financier). Aucune utilisation commerciale n'est faite de ces
+									informations qui ne sont conservées que par obligation légale</p>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="accordion-item">
+					<h2 class="accordion-header" id="headingfour">
+						<button class="accordion-button collapsed" type="button"
+							data-bs-toggle="collapse" data-bs-target="#collapseFour"
+							aria-expanded="false" aria-controls="collapseFour">
+							<h5>Vos informations bancaires sont gérées par la banque,
+								organisme agréé PCI DSS</h5>
+						</button>
+					</h2>
+					<div id="collapseFour" class="accordion-collapse collapse"
+						aria-labelledby="headingFour" data-bs-parent="#accordionExample">
+						<div class="accordion-body">
+							<p>La Norme de sécurité de l’industrie des cartes de paiement
+								(PCI DSS) permet de renforcer la sécurité des données des
+								personnes ayant une carte bancaire. Cette norme assure ainsi la
+								conformité de la banque à des critères stricts de sécurité.</p>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<br />
+			<br />
+			<div class="container shadow py-3 5px-5 mt-5">
+				<h5 class="text-center">Sécurité des cagnottes</h5>
+				<div class="accordion" id="accordionExample">
+					<div class="accordion-item">
+						<h2 class="accordion-header" id="headingOne">
+							<button class="accordion-button" type="button"
+								data-bs-toggle="collapse" data-bs-target="#collapseOne"
+								aria-expanded="true" aria-controls="collapseOne">
+								<h5>Une équipe dédiéé à la lutte contre la fraude et le
+									blanchiment d'argent</h5>
+							</button>
+						</h2>
+						<div id="collapseOne" class="accordion-collapse collapse show"
+							aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+							<div class="accordion-body">
+								<p>Le contrôle des cagnottes est placé sous la
+									responsabilité de notre equipe conformité. Ce service est en
+									charge d’assurer l’authenticité des collectes de fonds créées
+									sur eFUND, la sécurité de nos utilisateurs et de leurs
+									opérations. Nous effectuons des contrôles réguliers afin de
+									nous assurer que les fonds sont envoyés au bénéficiaire
+									annoncé.</p>
+
+							</div>
+						</div>
+					</div>
+					<div class="accordion-item">
+						<h2 class="accordion-header" id="headingTwo">
+							<button class="accordion-button collapsed" type="button"
+								data-bs-toggle="collapse" data-bs-target="#collapseTwo"
+								aria-expanded="false" aria-controls="collapseTwo">
+								<h5>Vous pouvez facilement signaler une caqnotte afin
+									qu'elle soit vérifiée par nos équipes</h5>
+							</button>
+						</h2>
+						<div id="collapseTwo" class="accordion-collapse collapse"
+							aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+							<div class="accordion-body">
+								<p>​​Pour cela, il vous suffit de vous rendre sur la
+									cagnotte de ONG en question et de cliquer sur “Signaler cette
+									cagnotte”. Vous pourrez ensuite choisir le motif de signalement
+									de cette cagnotte et nous laisser un commentaire sur celle-ci.</p>
+							</div>
+						</div>
+					</div>
+
+				</div>
+			</div>
+
+			<br />
+
+		</ui:define>
+
+	</ui:composition>
+</h:body>
+</html>

@@ -1,0 +1,140 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:p="http://primefaces.org/ui">
+
+<f:metadata>
+	<f:event listener="#{createUserBean.onLoad()}" type="preRenderView"></f:event>
+</f:metadata>
+
+<h:body>
+
+	<ui:composition template="/WEB-INF/template/layout.xhtml">
+
+		<ui:define name="css">
+			<link rel="stylesheet" href="css/creation.css" />
+		</ui:define>
+
+		<ui:define name="content">
+			<div class="container shadow p-5 my-5">
+				<h1>Modification de mes infos utilisateur</h1>
+				<hr />
+				<h:form id="modifyUserAccountForm">
+					<div class="ui-fluid row">
+						<div class="col-12 col-md-1 mt-3"></div>
+						<div class="col-12 col-md-5 mt-3">
+							<div class="ui-inputgroup">
+								<div class="ui-inputgroup-addon">
+									<i class="fa-solid fa-align-justify"></i>
+								</div>
+								<p:inputText placeholder="Prénom"
+									value="#{createUserBean.account.userInfo.firstName}"
+									id="FistNameInput" />
+							</div>
+						</div>
+						<div class="col-12 col-md-5 mt-3">
+							<div class="ui-inputgroup">
+								<div class="ui-inputgroup-addon">
+									<i class="fa-solid fa-align-justify"></i>
+								</div>
+								<p:inputText placeholder="Nom"
+									value="#{createUserBean.account.userInfo.lastName}"
+									id="LastNameInput" />
+							</div>
+						</div>
+					</div>
+
+					<div class="ui-fluid row">
+						<div class="col-12 col-md-1 mt-3"></div>
+						<div class="col-12 col-md-10 mt-3">
+							<div class="ui-inputgroup">
+								<div class="ui-inputgroup-addon">
+									<i class="fa-solid fa-address-card"></i>
+								</div>
+								<p:inputText placeholder="N° et rue"
+									value="#{createUserBean.account.userInfo.userAddress.address}" id="AddressInput" />
+							</div>
+						</div>
+					</div>
+
+					<div class="ui-fluid row">
+						<div class="col-12 col-md-1 mt-3"></div>
+						<div class="col-12 col-md-5 mt-3">
+							<div class="ui-inputgroup">
+								<div class="ui-inputgroup-addon">
+									<i class="fa-solid fa-address-card"></i>
+								</div>
+								<p:inputText placeholder="Code postal"
+									value="#{createUserBean.account.userInfo.userAddress.zipcode}" id="ZipcodeInput" />
+							</div>
+						</div>
+						<div class="col-12 col-md-5 mt-3">
+							<div class="ui-inputgroup">
+								<div class="ui-inputgroup-addon">
+									<i class="fa-solid fa-address-card"></i>
+								</div>
+								<p:inputText placeholder="Ville"
+									value="#{createUserBean.account.userInfo.userAddress.city}" id="CityInput" />
+							</div>
+						</div>
+					</div>
+
+					<div class="ui-fluid row">
+						<div class="col-12 col-md-1 mt-3"></div>
+						<div class="col-12 col-md-5 mt-3">
+							<div class="ui-inputgroup">
+								<div class="ui-inputgroup-addon">
+									<i class="fa-solid fa-address-card"></i>
+								</div>
+								<p:inputText placeholder="Pays"
+									value="#{createUserBean.account.userInfo.userAddress.country}" id="CountryInput" />
+							</div>
+						</div>
+						<div class="col-12 col-md-5 mt-3">
+							<div class="ui-inputgroup">
+								<div class="ui-inputgroup-addon">
+									<i class="fa-solid fa-phone"></i>
+								</div>
+								<p:inputText placeholder="Téléphone"
+									value="#{createUserBean.account.userInfo.phone}" id="PhoneInput" />
+							</div>
+						</div>
+					</div>
+
+					<div class="ui-fluid row">
+						<div class="col-12 col-md-1 mt-3"></div>
+						<div class="col-12 col-md-10 mt-3">
+							<p:fileUpload skinSimple="true"
+								uploadButtonStyleClass="ui-button-outlined ui-button-secondary"
+								chooseButtonStyleClass="ui-button-outlined ui-button-secondary"
+								cancelButtonStyleClass="ui-button-outlined ui-button-secondary"
+								label="Choisissez une image" mode="advanced" sizeLimit="5000000"
+								fileLimit="1" accept=".gif,.jpg,.jpeg,.png"
+								invalidSizeMessage="L'image ne doit pas dépasser 5 Mo"
+								listener="#{createUserBean.upload}" />
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col-12 col-md-1 mt-3"></div>
+						<div class="col-12 col-md-5 mt-4 d-grid">
+							<p:commandButton styleClass="ui-button-outlined rounded-pill"
+								type="reset" value="Annuler" />
+						</div>
+						<div class="col-12 col-md-5 mt-4 d-grid">
+							<p:commandButton styleClass="ui-button-outlined rounded-pill"
+								action="#{createUserBean.updateUserModification	}" value="Valider les modifications" validateClient="true" />
+						</div>
+
+					</div>
+
+				</h:form>
+			</div>
+		</ui:define>
+
+	</ui:composition>
+</h:body>
+</html>

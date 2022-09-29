@@ -1,0 +1,322 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<f:metadata>
+	<f:viewParam name="id" />
+	<f:event listener="#{projectPageBean.onLoad(id)}" type="preRenderView"></f:event>
+</f:metadata>
+
+<h:body>
+	<ui:composition template="/WEB-INF/template/layout.xhtml">
+
+		<ui:define name="css">
+			<link rel="stylesheet" href="css/projectPage.css" />
+		</ui:define>
+
+		<ui:define name="content">
+
+
+			<div class="container-fluid p-5" id="projectPageBody">
+
+				<div class="row">
+
+					<div class="col-12 col-xxl-8">
+						<div class="container shadow" id="containerBorder">
+							<div class="row">
+								<div class="col-12 my-2">
+									<h1 style="display: inline">#{projectPageBean.project.name}</h1>
+									&nbsp;
+									<h5 style="display: inline">
+										<a
+											href="https://www.google.com/maps/search/#{projectPageBean.project.location}"
+											target="_blank"><i class="fa-solid fa-location-dot"></i>
+											#{projectPageBean.project.location}</a>
+									</h5>
+								</div>
+							</div>
+
+							<div class="row">
+								<div class="col-12 col-lg-6 text-center">
+									<img class="img-fluid mb-4" style="object-fit: cover"
+										src="#{request.contextPath}#{projectPageBean.project.imagePath}" />
+								</div>
+								<div class="col-12 col-lg-6 my-auto pb-4">
+									<h5>#{projectPageBean.project.description}</h5>
+									<p:commandButton icon="fa-solid fa-pen-to-square"
+										styleClass="rounded-button ui-button-secondary ui-button-outlined"
+										title="Editer la Description" type="button"
+										onclick="PF('descriptionPop').show()"
+										rendered="#{projectPageBean.isOwner()}" />
+								</div>
+							</div>
+
+						</div>
+						<br />
+
+						<div class="col-12 mb-5">
+
+							<!-- DEBUT DE TABVIEW -->
+							<p:tabView>
+
+								<!-- Onglet Campagne -->
+								<p:tab>
+									<f:facet name="title">
+										<i class="fa-solid fa-house" /> Campagne
+									</f:facet>
+									<p:commandButton icon="fa-solid fa-align-justify"
+										styleClass="rounded-button ui-button-primary ui-button-outlined m-1"
+										title="Ajouter un bloc de text" type="button"
+										onclick="PF('addTxtBlockPop').show()"
+										rendered="#{projectPageBean.isOwner()}" />
+
+									<p:commandButton icon="fa-solid fa-image"
+										styleClass="rounded-button ui-button-primary ui-button-outlined m-1"
+										title="Ajouter une image" type="button"
+										onclick="PF('addImgBlockPop').show()"
+										rendered="#{projectPageBean.isOwner()}" />
+
+									<p:commandButton icon="fa-solid fa-film"
+										styleClass="rounded-button ui-button-primary ui-button-outlined m-1"
+										title="Ajouter une video" type="button"
+										onclick="PF('addVidBlockPop').show()"
+										rendered="#{projectPageBean.isOwner()}" />
+
+									<div class="container mx-auto text-center">
+										<h2 class="text-center">Campagne de financement</h2>
+										<hr style="border: 2px" />
+
+										<p:repeat var="block"
+											value="#{projectPageBean.project.contentBlocks}">
+											<h:form>
+												<p:commandButton icon="fa-solid fa-minus"
+													styleClass="rounded-button ui-button-secondary ui-button-outlined m-3"
+													title="Supprimer le bloc"
+													action="#{projectPageBean.removeBlock(block.id)}"
+													ajax="false" rendered="#{projectPageBean.isOwner()}" />
+											</h:form>
+
+											<p:outputLabel
+												rendered="#{projectPageBean.isOfType(block.type, 'txt')}"
+												style="font-size: 25px !important">#{block.content}</p:outputLabel>
+
+											<p:graphicImage
+												rendered="#{projectPageBean.isOfType(block.type, 'img')}"
+												class="img-fluid rounded img-thumbnail shadow"
+												style="max-width: 60% !important" value="#{block.content}" />
+
+											<p:video
+												rendered="#{projectPageBean.isOfType(block.type, 'vid')}"
+												value="#{block.content}" player="mp4" controls="true"
+												width="600" onplay="console.log('MP4 Started Playing')"
+												onpause="console.log('MP4 Stopped Playing')">
+												Your browser does not support the video element. See: 
+												<h:outputLink
+													value="https://www.w3schools.com/html/html5_video.asp">HTML5 Video</h:outputLink>
+											</p:video>
+
+											<hr style="border: 2px" />
+										</p:repeat>
+
+									</div>
+
+								</p:tab>
+
+								<!-- Onglet Objectifs -->
+								<p:tab>
+									<f:facet name="title">
+										<i class="fa-solid fa-euro-sign" /> Objectifs
+									</f:facet>
+
+									<h2 class="text-center">Dépassement des objectifs</h2>
+
+									<p:commandButton icon="fa-solid fa-plus"
+										styleClass="rounded-button ui-button-primary ui-button-outlined m-1"
+										title="Ajouter un palier d'objectif" type="button"
+										onclick="PF('addGoalPop').show()"
+										rendered="#{projectPageBean.isOwner()}" />
+
+									<p:repeat var="goal"
+										value="#{projectPageBean.project.stretchGoals}"
+										varStatus="status">
+
+										<ul>
+											<li>
+												<h5>
+													Palier #{status.index + 1} : <b>#{goal.target} €</b>
+												</h5> <h:form>
+													<p>
+														<p:commandButton icon="fa-solid fa-minus"
+															styleClass="rounded-button ui-button-secondary ui-button-outlined m-3"
+															title="Supprimer le palier d'objectif"
+															action="#{projectPageBean.removeGoal(goal.id)}"
+															ajax="false" rendered="#{projectPageBean.isOwner()}" />
+														#{goal.description}
+													</p>
+												</h:form>
+											</li>
+										</ul>
+										<hr />
+
+									</p:repeat>
+								</p:tab>
+
+								<!-- Onglet FAQ -->
+								<p:tab>
+									<f:facet name="title">
+										<i class="fa-solid fa-question" /> FAQ
+									</f:facet>
+
+									<p:commandButton icon="fa-solid fa-plus"
+										styleClass="rounded-button ui-button-primary ui-button-outlined m-1"
+										title="Ajouter une question/réponse" type="button"
+										onclick="PF('addFaqPop').show()"
+										rendered="#{projectPageBean.isOwner()}" />
+									<p:repeat var="faqElement"
+										value="#{projectPageBean.project.faq}" varStatus="status">
+
+										<ul>
+											<li>
+												<h5>
+													Question #{status.index + 1} : <b>#{faqElement.question}
+													</b>
+												</h5> <h:form>
+													<p>
+														<p:commandButton icon="fa-solid fa-minus"
+															styleClass="rounded-button ui-button-secondary ui-button-outlined m-3"
+															title="Supprimer la question"
+															action="#{projectPageBean.removeFaq(faqElement.id)}"
+															ajax="false" rendered="#{projectPageBean.isOwner()}" />
+														#{faqElement.answer}
+													</p>
+												</h:form>
+											</li>
+										</ul>
+										<hr />
+
+									</p:repeat>
+
+								</p:tab>
+
+							</p:tabView>
+							<!-- FIN DE TABVIEW -->
+
+						</div>
+					</div>
+					<div class="col-12 col-xxl-4">
+						<div class="row mb-5">
+							<div class="col-12 col-lg-5">
+								<h:link
+									outcome="pageOng.xhtml?id=#{projectPageBean.organizationAccount.id}faces-redirect=true">
+									<img class="img-fluid w-100" id="containerBorder"
+										src="#{request.contextPath}#{projectPageBean.organizationAccount.imagePath}"
+										alt="" />
+								</h:link>
+							</div>
+							<div class="col-12 col-lg-7 my-auto">
+								<h4>#{projectPageBean.organizationAccount.organizationInfo.name}</h4>
+								<p>#{projectPageBean.organizationAccount.organizationInfo.summary}</p>
+							</div>
+						</div>
+
+						<hr />
+
+						<div class="row">
+							<div class="col-12 col-md-1" />
+							<div class="col-12 col-md-10">
+								<br />
+								<div class="text-center">
+									<p:knob foregroundColor="#426CB4" backgroundColor="#4f4f4f"
+										disabled="true"
+										labelTemplate="#{projectPageBean.remainingDays}"
+										value="#{projectPageBean.countDown(projectPageBean.remainingDays, projectPageBean.donationDuration)}" />
+								</div>
+
+								<div class="row justify-content-center mb-5">Il vous reste
+									#{projectPageBean.remainingDays} jours (sur
+									#{projectPageBean.donationDuration}) pour participer !</div>
+
+								<br />
+								<div class="text-center">
+									<div class="progress bg-secondary">
+										<div
+											class="progress-bar progress-bar-striped progress-bar-animated"
+											style="width:#{projectPageBean.percentage(projectPageBean.project.currentAmount, projectPageBean.project.targetAmount)}%">#{projectPageBean.percentage(projectPageBean.project.currentAmount,
+											projectPageBean.project.targetAmount)}%</div>
+									</div>
+								</div>
+								<div class="row justify-content-center">
+
+									#{projectPageBean.project.currentAmount}€ collectés sur
+									#{projectPageBean.project.targetAmount}€</div>
+
+								<h:form rendered="#{loginBean.isUser()}">
+									<div class="row mt-5 mb-3 text-center">
+										<div class="col-12 col-md-2" />
+										<div class="col-12 col-md-8">
+											<p:commandButton icon="pi pi-euro"
+												styleClass="ui-button-outlined ui-button-secondary rounded-pill"
+												value="Effectuer un don" type="button"
+												onclick="PF('donationPop').show()" />
+										</div>
+									</div>
+
+									<div class="row mt-3 text-center">
+										<div class="col-12 col-md-4" />
+
+										<div class="col-6 col-md-2">
+
+											<p:commandButton icon="fa-regular fa-heart" type="submit"
+												styleClass="rounded-button ui-button-secondary ui-button-outlined"
+												title="Ajouter aux favoris"
+												action="#{projectPageBean.addFavorite}"
+												rendered="#{!projectPageBean.isFaved()}" async="true"
+												oncomplete="location.reload()" />
+
+											<p:commandButton icon="fa-regular fa-heart" type="submit"
+												styleClass="rounded-button ui-button-danger ui-button-outlined"
+												title="Retirer des favoris"
+												action="#{projectPageBean.removeFavorite}"
+												rendered="#{projectPageBean.isFaved()}" async="true"
+												oncomplete="location.reload()" />
+
+										</div>
+										<div class="col-6 col-md-2">
+											<p:commandButton icon="fa-regular fa-thumbs-up" type="submit"
+												styleClass="rounded-button ui-button-secondary ui-button-outlined"
+												title="J'aime" action="#{projectPageBean.addLike}"
+												rendered="#{!projectPageBean.isLiked()}" async="true"
+												oncomplete="location.reload()" />
+											<p:commandButton icon="fa-regular fa-thumbs-up" type="submit"
+												styleClass="rounded-button ui-button-primary ui-button-outlined"
+												title="Je n'aime plus"
+												action="#{projectPageBean.removeLike}"
+												rendered="#{projectPageBean.isLiked()}" async="true"
+												oncomplete="location.reload()" />
+										</div>
+									</div>
+								</h:form>
+
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<ui:include
+				src="WEB-INF/subpage/projectPage/modifDescriptionPopup.xhtml" />
+			<ui:include src="WEB-INF/subpage/projectPage/donationPopup.xhtml" />
+			<ui:include src="WEB-INF/subpage/projectPage/goalPopup.xhtml" />
+			<ui:include src="WEB-INF/subpage/projectPage/faqPopup.xhtml" />
+			<ui:include src="WEB-INF/subpage/projectPage/txtBlockPopup.xhtml" />
+			<ui:include src="WEB-INF/subpage/projectPage/imgBlockPopup.xhtml" />
+			<ui:include src="WEB-INF/subpage/projectPage/vidBlockPopup.xhtml" />
+
+
+		</ui:define>
+	</ui:composition>
+</h:body>
+</html>

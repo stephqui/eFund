@@ -1,0 +1,98 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:body>
+	<h:form id="itemCreationForm">
+		<p:dialog widgetVar="itemCreationPop" modal="true">
+			<f:facet name="header">
+				<h1>Nouveau produit</h1>
+			</f:facet>
+
+			<div class="container-fluid shadow p-5"
+				style="width: 60vw; height: 60vh">
+
+				<div class="ui-fluid row">
+					<div class="col-12 col-md-2 mt-3"></div>
+					<div class="col-12 col-md-8 mt-3">
+						<div class="ui-inputgroup">
+							<div class="ui-inputgroup-addon">
+								<i class="fa-solid fa-align-justify"></i>
+							</div>
+							<p:inputText placeholder="Nom"
+								value="#{itemCreationBean.itemCreationForm.label}"
+								id="ItemLabelInput" required="true"/>
+						</div>
+					</div>
+				</div>
+
+				<div class="ui-fluid row">
+					<div class="col-12 col-md-2 mt-3"></div>
+					<div class="col-12 col-md-4 mt-3">
+						<p:selectOneMenu
+							value="#{itemCreationBean.itemCreationForm.itemCategory}" required="true">
+							<f:selectItem itemLabel="Catégorie" itemValue="" />
+							<f:selectItems
+								value="#{itemCreationBean.itemCreationForm.categories}"
+								var="category" itemValue="#{category}"
+								itemLabel="#{category.label}" />
+						</p:selectOneMenu>
+					</div>
+					<div class="col-12 col-md-4 mt-3">
+						<div class="ui-inputgroup">
+							<div class="ui-inputgroup-addon">
+								<i class="fa-solid fa-euro-sign"></i>
+							</div>
+							<p:spinner placeholder="Prix" min="1"
+								upButtonStyleClass="ui-button-secondary"
+								downButtonStyleClass="ui-button-secondary"
+								value="#{itemCreationBean.itemCreationForm.price}"
+								id="ItemPriceInput" required="true"/>
+						</div>
+					</div>
+				</div>
+
+				<div class="ui-fluid row">
+					<div class="col-12 col-md-2 mt-3"></div>
+					<div class="col-12 col-md-8 mt-3">
+						<p:inputTextarea placeholder="Description"
+							value="#{itemCreationBean.itemCreationForm.description}"
+							id="ItemDescriptionInput" required="true"/>
+					</div>
+				</div>
+
+				<div class="ui-fluid row">
+					<div class="col-12 col-md-2 mt-3"></div>
+					<div class="col-12 col-md-8 mt-3">
+						<p:fileUpload skinSimple="true"
+							uploadButtonStyleClass="ui-button-outlined ui-button-secondary"
+							chooseButtonStyleClass="ui-button-outlined ui-button-secondary"
+							cancelButtonStyleClass="ui-button-outlined ui-button-secondary"
+							label="Choisissez une image" mode="advanced" sizeLimit="5000000"
+							fileLimit="1" accept=".gif,.jpg,.jpeg,.png"
+							invalidSizeMessage="L'image ne doit pas dépasser 5 Mo"
+							listener="#{itemCreationBean.upload}" required="true"/>
+
+					</div>
+
+				</div>
+
+			</div>
+
+			<f:facet name="footer">
+				<div class="col-12 d-grid">
+					<p:commandButton
+						styleClass="ui-button-outlined ui-button-secondary rounded-pill"
+						action="#{itemCreationBean.createItem(organizationSpaceBean.orgAccount.organizationSpace.shop.id)}"
+						oncomplete="PF('itemCreationPop').hide()" value="Valider" validateClient="true" />
+				</div>
+			</f:facet>
+
+		</p:dialog>
+	</h:form>
+</h:body>
+</html>
